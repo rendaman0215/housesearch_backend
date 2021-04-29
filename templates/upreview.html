@@ -8,8 +8,13 @@
     <form class="form-signin" method="POST" action=''>{% csrf_token %}
         <h1 class="h3 mb-3 fw-normal">{{object.name}}の口コミを投稿する</h1>
         <label for="inputEmail" class="visually-hidden">コメント</label>
-        <input type="text" id="inputEmail" class="form-control" name='comment' required autofocus>
+        {% if isPosted %}
+        <textarea type="text" id="inputEmail" class="form-control" name='comment' required autofocus>{{post}}</textarea>
+        <button class="w-100 btn btn-lg btn-primary" type="submit">編集する</button>
+        {% else %}
+        <textarea type="text" id="inputEmail" class="form-control" name='comment' required autofocus></textarea>
         <button class="w-100 btn btn-lg btn-primary" type="submit">投稿する</button>
+        {% endif %}
     </form>
 </main>
 {% endblock content %}

@@ -37,7 +37,7 @@ def listfunc(request):
 
 def logoutfunc(request):
     logout(request)
-    return redirect('index')
+    return redirect('list')
 
 def detailfunc(request, pk):
     object = MakerCard.objects.get(pk=pk)
@@ -45,24 +45,37 @@ def detailfunc(request, pk):
 
 def reviewfunc(request, pk):
     object = MakerCard.objects.get(pk=pk)
-    review_list = object_list = Reviews.objects.filter(tenant=pk)
+    review_list = Reviews.objects.filter(tenant=pk)
     return render(request, 'review.html', {'object':object, 'review_list':review_list})
 
 def expensefunc(request, pk):
     object = MakerCard.objects.get(pk=pk)
-    expense_list = object_list = Expense.objects.filter(tenant=pk)
+    expense_list = Expense.objects.filter(tenant=pk)
     return render(request, 'expense.html', {'object':object, 'expense_list':expense_list})
 
 @login_required
 def upreviewfunc(request, pk):
     object = MakerCard.objects.get(pk=pk)
+    user = request.user
     if request.method == 'POST':
-        author = request.User.username
-        comment = request.POST['comment']
-        return render(request, 'upreview.html', {'object':object})
+        if Reviews.objects.filter(author=user.username) != None :
+            post = Reviews.objects.get(author=user.username)
+            post.comment = request.POST['comment']
+        else:
+            post = Reviews.objects.create(
+                author = user.username,
+                comment = request.POST['comment'],
+                tenant = pk
+            )
+        post.save()
+        return redirect('review', pk=pk)
     else:
-        return render(request, 'upreview.html', {'object':object})
-    return render(request, 'upreview.html', {'object':object})
+        if Reviews.objects.filter(author=user.username) != None :
+            post = Reviews.objects.get(author=user.username)
+            return render(request, 'upreview.html',{'object':object,'isPosted':True, 'post':post.comment}) 
+        else:
+            return render(request, 'upreview.html',{'object':object,'isPosted':False})
+    return render(request, 'upreview.html',{'object':object})
 
 @login_required
 def upexpensefunc(request, pk):
