@@ -26,7 +26,7 @@ SECRET_KEY = '^@=*uo^h78)k(r^la9me40u_ybrufvr0=5rlw%z0o3j@46%%5*'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['rendaman.net']
+ALLOWED_HOSTS = ['localhost', 'rendaman.net']
 
 
 # Application definition
