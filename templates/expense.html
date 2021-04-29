@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block customcss %}
+{% endblock customcss %}
+
+{% block content %}
+
+<p><a href="{% url 'detail' object.pk %}">{{object.name}}</a>の費用明細</p>
+
+{% for item in expense_list %}
+<div class="card mb-3 mx-auto" style="max-width: 720px;">
+  <div class="row g-0">
+    <div class="col-md-8">
+      <div class="card-body">
+        <p class="card-text">投稿者：{{item.author}}</p>
+        <p class="card-text">費用：{{item.cost}}万円</p>
+        <p class="card-text">コメント：{{item.comment}}</p>
+        <img src='{{item.images.url}}' alt={{object.name}} title={{object.name}} width=100%%>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+{% endblock content %}
