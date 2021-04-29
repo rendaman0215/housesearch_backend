@@ -11,7 +11,7 @@
 <p><a href="{% url 'review' object.pk %}">口コミ</a></p>
 <p><a href="{% url 'expense' object.pk %}">費用明細</a></p>
 
-<p><a href="{% url 'upreview' object.pk %}">口コミを投稿する</a></p>
-<p><a href="{% url 'upexpense' object.pk %}">費用明細を投稿する</a></p>
+<p><a href="{% url 'postreview' object.pk %}">口コミを投稿する</a></p>
+<p><a href="{% url 'postexpense' object.pk %}">費用明細を投稿する</a></p>
 
 {% endblock content %}

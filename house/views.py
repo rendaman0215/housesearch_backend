@@ -46,7 +46,8 @@ def detailfunc(request, pk):
 def reviewfunc(request, pk):
     object = MakerCard.objects.get(pk=pk)
     review_list = Reviews.objects.filter(tenant=pk)
-    return render(request, 'review.html', {'object':object, 'review_list':review_list})
+    user = request.user
+    return render(request, 'review.html', {'object':object, 'review_list':review_list, 'user':user})
 
 def expensefunc(request, pk):
     object = MakerCard.objects.get(pk=pk)
@@ -54,30 +55,38 @@ def expensefunc(request, pk):
     return render(request, 'expense.html', {'object':object, 'expense_list':expense_list})
 
 @login_required
-def upreviewfunc(request, pk):
+def postreviewfunc(request, pk):
     object = MakerCard.objects.get(pk=pk)
     user = request.user
-    if request.method == 'POST':
-        if Reviews.objects.filter(author=user.username) != None :
-            post = Reviews.objects.get(author=user.username)
+    try:
+        post = Reviews.objects.get(author=user.username, tenant=pk)
+        if request.method == 'POST':
             post.comment = request.POST['comment']
+            post.save()
+            return redirect('review', pk=pk)
         else:
+            return render(request, 'postreview.html',{'object':object,'isPosted':True, 'post':post.comment}) 
+    except:
+        if request.method == 'POST':
             post = Reviews.objects.create(
                 author = user.username,
                 comment = request.POST['comment'],
                 tenant = pk
             )
-        post.save()
-        return redirect('review', pk=pk)
-    else:
-        if Reviews.objects.filter(author=user.username) != None :
-            post = Reviews.objects.get(author=user.username)
-            return render(request, 'upreview.html',{'object':object,'isPosted':True, 'post':post.comment}) 
+            post.save()
+            return redirect('review', pk=pk)
         else:
-            return render(request, 'upreview.html',{'object':object,'isPosted':False})
-    return render(request, 'upreview.html',{'object':object})
+            return render(request, 'postreview.html',{'object':object,'isPosted':False})
+    return render(request, 'postreview.html',{'object':object})
 
 @login_required
-def upexpensefunc(request, pk):
+def postexpensefunc(request, pk):
     object = MakerCard.objects.get(pk=pk)
     return render(request, 'upexpense.html', {'object':object})
+
+@login_required
+def deletereviewfunc(request, pk):
+    user = request.user
+    post = Reviews.objects.get(author=user.username, tenant=pk)
+    post.delete()
+    return redirect('review', pk=pk)
