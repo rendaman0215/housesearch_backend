@@ -2,6 +2,11 @@
     border-bottom: solid 1px #BCBCBC;
 }
 
+.maker-card {
+    border-bottom: solid 1px #BCBCBC;
+    background-color: #f5f5f5
+}
+
 .maker-card-image {
     border-right: solid 1px #BCBCBC;
 }
