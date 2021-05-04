@@ -4,17 +4,26 @@
 {% endblock customcss %}
 
 {% block content %}
-<main class="form-signin">
-    <form class="form-signin" method="POST" action=''>{% csrf_token %}
-        <h1 class="h3 mb-3 fw-normal">{{object.name}}の口コミを投稿する</h1>
-        <label for="inputEmail" class="visually-hidden">コメント</label>
+<div class="py-3 text-center col-9 mx-auto">
+    <form class="needs-validation" method="POST" action=''>{% csrf_token %}
+        <h3 class="mb-5">口コミ投稿</h3>
+        <p class="form-label">全体的にいかがでしたか？</p>
+        <select name="rate" required>
+            <option value="">選択してください</option>
+            <option value="5">5 大変満足</option>
+            <option value="4">4 満足</option>
+            <option value="3">3 普通</option>
+            <option value="2">2 不満</option>
+            <option value="1">1 大変不満</option>
+        </select>
+        <p class="form-label">口コミ内容を入力してください</p>
+        <textarea type="text" class="form-control" name='comment' required autofocus>{{post}}</textarea>
+        <hr class="my-4">
         {% if isPosted %}
-        <textarea type="text" id="inputEmail" class="form-control" name='comment' required autofocus>{{post}}</textarea>
         <button class="w-100 btn btn-lg btn-primary" type="submit">編集する</button>
         {% else %}
-        <textarea type="text" id="inputEmail" class="form-control" name='comment' required autofocus></textarea>
         <button class="w-100 btn btn-lg btn-primary" type="submit">投稿する</button>
         {% endif %}
     </form>
-</main>
+</div>
 {% endblock content %}

@@ -13,6 +13,7 @@
     <div class="col-md-8">
       <div class="card-body">
         <p class="card-text">投稿者：{{item.author}}</p>
+        <p class="card-text">評価：{{item.rate}}</p>
         <p class="card-text">コメント：{{item.comment}}</p>
         {% if item.author == user.username%}
         <form method="POST" action="{% url 'deletereview' object.pk %}">{% csrf_token %}

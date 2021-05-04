@@ -33,7 +33,8 @@ def loginfunc(request):
 
 def listfunc(request):
     object_list = MakerCard.objects.all()
-    return render(request, 'list.html', {'object_list':object_list})
+    review_list = Reviews.objects.all()
+    return render(request, 'list.html', {'object_list':object_list, 'review_list':review_list})
 
 def logoutfunc(request):
     logout(request)
@@ -62,21 +63,23 @@ def postreviewfunc(request, pk):
         post = Reviews.objects.get(author=user.username, tenant=pk)
         if request.method == 'POST':
             post.comment = request.POST['comment']
+            post.rate = request.POST['rate']
             post.save()
             return redirect('review', pk=pk)
         else:
-            return render(request, 'postreview.html',{'object':object,'isPosted':True, 'post':post.comment}) 
+            return render(request, 'postreview.html',{'object':object, 'post':post.comment, 'isPosted':True}) 
     except:
         if request.method == 'POST':
             post = Reviews.objects.create(
                 author = user.username,
                 comment = request.POST['comment'],
+                rate = request.POST['rate'],
                 tenant = pk
             )
             post.save()
             return redirect('review', pk=pk)
         else:
-            return render(request, 'postreview.html',{'object':object,'isPosted':False})
+            return render(request, 'postreview.html',{'object':object,'post':"", 'isPosted':False})
     return render(request, 'postreview.html',{'object':object})
 
 @login_required

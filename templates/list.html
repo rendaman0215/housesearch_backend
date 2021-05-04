@@ -47,7 +47,7 @@
     <span class="visually-hidden">Next</span>
   </a>
   <div class="mx-auto my-3">
-    <p class="lead fw-normal">こだわりや特徴を見比べて、最適な依頼先を見つけましょう。</p>
+    <p>こだわりや特徴を見比べて、最適な依頼先を見つけましょう。</p>
   </div>
 </div>
 <div class="row row-cols-1 row-cols-md-2 g-0">
@@ -65,9 +65,9 @@
             </div>
             <div class="row">
               <div class="card-body">
-                <p class="card-text"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i><i class="bi bi-star"></i> 3.5 | 口コミ 2件</p>
-                <p class="card-text">平均費用：１０万円/坪 | 費用明細 2件</p>
-                <p class="card-text">平均坪数：３０坪</p>
+                <p class="card-text">{{item.ratetostr | safe }} {{item.get_rateavg}} | 口コミ：{{item.get_review_count}}件</p>
+                <p class="card-text">平均費用：{{item.get_expense_avg}}万円 | 費用明細：{{item.get_expense_count}}件</p>
+                <p class="card-text">平均坪数：{{item.get_landarea_avg}}坪</p>
               </div>
             </div>
           </div>

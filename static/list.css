@@ -2,9 +2,19 @@
     border-bottom: solid 1px #BCBCBC;
 }
 
+.card-text {
+    color: #555;
+}
+
+i.bi {
+    color: rebeccapurple;
+    font-size: large; 
+}
+
 .maker-card {
+    height: 25vh;
     border-bottom: solid 1px #BCBCBC;
-    background-color: #f5f5f5
+    background-color: #f5f5f5;
 }
 
 .maker-card-image {
