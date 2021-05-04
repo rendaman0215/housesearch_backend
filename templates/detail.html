@@ -32,8 +32,8 @@
         <a class="col-3 mx-3" href="{% url 'expense' object.pk %}"><i class="bi bi-cash-stack"></i>費用明細一覧</a>
       </div>
       <div class="text-center py-3">
-        <a class="col-3 mx-3" href="{% url 'postreview' object.pk %}"><button class="w-30 btn btn-primary" >口コミを投稿する</button></a>
-        <a class="col-3 mx-3" href="{% url 'postexpense' object.pk %}"><button class="w-30 btn btn-primary"> 費用明細を投稿する</button></a>
+        <a class="col-3 mx-2" href="{% url 'postreview' object.pk %}"><button class="w-30 btn btn-primary" >口コミを投稿する</button></a>
+        <a class="col-3 mx-2" href="{% url 'postexpense' object.pk %}"><button class="w-30 btn btn-primary"> 費用明細を投稿する</button></a>
       </div>
   </div>
 {% endblock content %}
