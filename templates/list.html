@@ -46,21 +46,24 @@
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Next</span>
   </a>
+  <div class="my-5">
+    <h4>住宅メーカーのこだわりや特徴</h4>
+  </div>
   <div class="mx-auto my-3">
     <p>こだわりや特徴を見比べて、最適な依頼先を見つけましょう。</p>
   </div>
 </div>
-<div class="row row-cols-1 row-cols-md-2 g-0">
+<div class="row row-cols-1 row-cols-md-2 g-0 col-md-10 mx-auto pt-3">
   {% for item in object_list %}  
       <div class="mx-auto my-3 px-4 col" style="max-width: 720px;">
-        <a href="{% url 'detail' item.pk %}">
+        <a class="maker-card-a" href="{% url 'detail' item.pk %}">
           <div class="maker-card p-2">
             <div class="row">
               <div class="col-4 maker-card-image pe-3">
                 <img src='{{item.images.url}}' alt={{item.name}} title={{item.name}} class="card-img-top" >
               </div>
-              <div class="col-8 ps-3">
-                <h5 class="card-title">{{item.name}}</h5>
+              <div class="col-8 ps-3 d-flex align-items-center">
+                <h6 class="card-title">{{item.name}}</h6>
               </div>
             </div>
             <div class="row">

@@ -62,18 +62,50 @@ def postreviewfunc(request, pk):
     try:
         post = Reviews.objects.get(author=user.username, tenant=pk)
         if request.method == 'POST':
-            post.comment = request.POST['comment']
-            post.rate = request.POST['rate']
+            post.costcomment = request.POST['costcomment']
+            post.costrate = request.POST['costrate']
+            post.designcomment = request.POST['designcomment']
+            post.designrate = request.POST['designrate']
+            post.layoutcomment = request.POST['layoutcomment']
+            post.layoutrate = request.POST['layoutrate']
+            post.speccomment = request.POST['speccomment']
+            post.specrate = request.POST['specrate']
+            post.attachcomment = request.POST['attachcomment']
+            post.attachrate = request.POST['attachrate']
+            post.guaranteecomment = request.POST['guaranteecomment']
+            post.guaranteerate = request.POST['guaranteerate']
+            post.salescomment = request.POST['salescomment']
+            post.salesrate = request.POST['salesrate']
             post.save()
             return redirect('review', pk=pk)
         else:
-            return render(request, 'postreview.html',{'object':object, 'post':post.comment, 'isPosted':True}) 
+            return render(request, 'postreview.html',{'object':object, 'post':post, 'isPosted':True}) 
     except:
         if request.method == 'POST':
             post = Reviews.objects.create(
                 author = user.username,
-                comment = request.POST['comment'],
-                rate = request.POST['rate'],
+                costcomment = request.POST['costcomment'],
+                costrate = request.POST['costrate'],
+                designcomment = request.POST['designcomment'],
+                designrate = request.POST['designrate'],
+                layoutcomment = request.POST['layoutcomment'],
+                layoutrate = request.POST['layoutrate'],
+                speccomment = request.POST['speccomment'],
+                specrate = request.POST['specrate'],
+                attachcomment = request.POST['attachcomment'],
+                attachrate = request.POST['attachrate'],
+                guaranteecomment = request.POST['guaranteecomment'],
+                guaranteerate = request.POST['guaranteerate'],
+                salescomment = request.POST['salescomment'],
+                salesrate = request.POST['salesrate'],
+                avgrate = float(
+                    int(request.POST['costrate'])
+                     + int(request.POST['designrate'])
+                     + int(request.POST['layoutrate'])
+                     + int(request.POST['specrate'])
+                     + int(request.POST['attachrate'])
+                     + int(request.POST['guaranteerate'])
+                     + int(request.POST['salesrate']) )/ 7,
                 tenant = pk
             )
             post.save()

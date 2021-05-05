@@ -8,13 +8,27 @@
 <p><a href="{% url 'detail' object.pk %}">{{object.name}}</a>の口コミ</p>
 
 {% for item in review_list %}
-<div class="card mb-3 mx-auto" style="max-width: 720px;">
+<div class="card mb-3 mx-auto">
   <div class="row g-0">
     <div class="col-md-8">
       <div class="card-body">
-        <p class="card-text">投稿者：{{item.author}}</p>
-        <p class="card-text">評価：{{item.rate}}</p>
-        <p class="card-text">コメント：{{item.comment}}</p>
+        <p class="card-text">投稿者：{{item.author}}さん</p>
+        <p class="card-text">現在：{{item.status}}</p>
+        <p class="card-text">総合評価：{{item.avgrate}}</p>
+        <p class="card-text">費用：{{item.costrate}}</p>
+        <p class="card-text">{{item.costcomment}}</p>
+        <p class="card-text">デザイン：{{item.designrate}}</p>
+        <p class="card-text">{{item.designcomment}}</p>
+        <p class="card-text">間取り：{{item.layoutrate}}</p>
+        <p class="card-text">{{item.layoutcomment}}</p>
+        <p class="card-text">住宅の性能：{{item.specrate}}</p>
+        <p class="card-text">{{item.speccomment}}</p>
+        <p class="card-text">付帯設備：{{item.attachcomment}}</p>
+        <p class="card-text">{{item.attachrate}}</p>
+        <p class="card-text">保証：{{item.guaranteerate}}</p>
+        <p class="card-text">{{item.guaranteecomment}}</p>
+        <p class="card-text">担当営業：{{item.salesrate}}</p>
+        <p class="card-text">{{item.salescomment}}</p>
         {% if item.author == user.username%}
         <form method="POST" action="{% url 'deletereview' object.pk %}">{% csrf_token %}
           <button class="btn btn-outline-primary" type="submit">削除する</a>
