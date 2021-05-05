@@ -23,3 +23,10 @@ i.bi {
 .maker-card-image {
     border-right: solid 1px #BCBCBC;
 }
+
+.card-title {
+    font-family: 'Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3', sans-serif;
+    font-weight: bold; 
+    font-size: 15px;
+    line-height: 100%;
+}
