@@ -1,9 +1,11 @@
-.top-logo {
+.top-message {
+    border-top: solid 1px #BCBCBC;
     border-bottom: solid 1px #BCBCBC;
 }
 
-.card-text {
-    color: #555;
+p.card-text {
+    font-family: 'Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3', sans-serif;
+    color: #000;
 }
 
 i.bi {
@@ -12,8 +14,8 @@ i.bi {
 
 .maker-card {
     height: 250px;
-    border-bottom: solid 1px #AAA;
     background-color: #fff;
+    transition: 0.5s;
 }
 
 .maker-card:hover {
@@ -24,15 +26,15 @@ i.bi {
     justify-content: center;
     align-items: center;
     height: 100px;
-    border-right: solid 1px #BCBCBC;
 }
 
 img.card-img-top {
-    max-height: 100px;
-    width: 100%;
+    height: auto;
+    width: 150px;
 }
 
 .card-title {
+    border-left: solid 1px #BCBCBC;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -42,3 +44,15 @@ img.card-img-top {
     line-height: 100%;
     height: 40px;
 }
+
+.eachcard {
+    border-bottom: solid 1px #BCBCBC;
+}
+
+/* スマホ用 */
+@media screen and (max-width:480px) { 
+    .maker-card {
+        background-color: #f5f5f5;
+    }
+}
+

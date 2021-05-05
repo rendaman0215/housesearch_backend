@@ -7,7 +7,7 @@
 {% endblock customcss %}
 
 {% block content %}
-<div class="top-logo position-relative overflow-hidden p-3 p-md-3 m-md-3 text-center">
+<div class="top-logo position-relative overflow-hidden p-2 p-md-2 m-md-2 text-center">
   <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
     <ol class="carousel-indicators">
       <li data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"></li>
@@ -38,32 +38,26 @@
       </div>
     </div>
   </div>
-  <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </a>
-  <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </a>
+</div>
+<div class="text-center top-message">
   <div class="my-5">
     <h4>住宅メーカーのこだわりや特徴</h4>
   </div>
-  <div class="mx-auto my-3">
+  <div class="mx-auto my-5">
     <p>こだわりや特徴を見比べて、最適な依頼先を見つけましょう。</p>
   </div>
 </div>
 <div class="row row-cols-1 row-cols-md-2 g-0 col-md-10 mx-auto py-3">
   {% for item in object_list %}  
-      <div class="mx-auto my-3 px-4 col" style="max-width: 720px;">
+      <div class="mx-auto px-4 col" style="max-width: 720px;">
         <a class="maker-card-a" href="{% url 'detail' item.pk %}">
           <div class="maker-card p-2">
-            <div class="row pb-2">
-              <div class="col-4 maker-card-image pe-3">
+            <div class="row pb-2 p-2">
+              <div class="col-6 maker-card-image">
                 <img src='{{item.images.url}}' alt={{item.name}} title={{item.name}} class="card-img-top" >
               </div>
-              <div class="col-8 ps-3 d-flex align-items-center">
-                <p class="card-title">{{item.name}}</p>
+              <div class="col-6 d-flex align-items-center">
+                <p class="card-title ps-3">{{item.name}}</p>
               </div>
             </div>
             <div class="row">
@@ -75,6 +69,7 @@
             </div>
           </div>
         </a>
+        <hr class="my-4">
       </div>
   {% endfor %}
 </div>
