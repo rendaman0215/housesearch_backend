@@ -2,6 +2,18 @@ body {
   font-family: 'ヒラギノ明朝 ProN', 'Hiragino Mincho ProN', sans-serif;
 }
 
+footer.container {
+  font-family: 'Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3', sans-serif;
+}
+
+i.footshare {
+  font-size: 24px;
+}
+
+.footshare{
+  font-size: 16px;
+}
+
 .headline {
   font-family: 'ヒラギノ明朝 ProN', 'Hiragino Mincho ProN', sans-serif;
   font-weight: bold; 
