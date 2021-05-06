@@ -40,7 +40,7 @@ img.card-img-top {
 }
 
 .card-title {
-    border-left: solid 1px #BCBCBC;
+    border-left: solid 1px #000;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -54,10 +54,16 @@ img.card-img-top {
 /* スマホ用 */
 @media screen and (max-width:480px) { 
     .maker-card {
+        height: 200px;
         background-color: #f5f5f5;
     }
     p.card-text {
         font-size: 13px;
+    }
+    
+    .card-body {
+        padding-top: 0;
+        padding-bottom: 0;
     }
     
     i.bi {
