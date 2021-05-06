@@ -1,0 +1,37 @@
+body {
+  font-family: 'ヒラギノ明朝 ProN', 'Hiragino Mincho ProN', sans-serif;
+}
+
+.headline {
+  font-family: 'ヒラギノ明朝 ProN', 'Hiragino Mincho ProN', sans-serif;
+  font-weight: bold; 
+}
+
+.nav-cust {
+  border-bottom: solid 1px #BCBCBC;
+}
+
+a {
+  color: #333;
+  text-decoration: none;
+}
+
+a:hover {
+    color: #333;
+    text-decoration: none;
+}
+  
+a:active {
+    color: #333;
+    text-decoration: none;
+}
+  
+a.no-color-change {
+    color: #333;
+    text-decoration: none;
+}
+
+a:visited {
+  color: #333;
+  text-decoration: none;
+}
