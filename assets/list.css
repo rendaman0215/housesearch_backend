@@ -26,7 +26,7 @@ i.bi {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100px;
+    height: 80px;
 }
 
 img.card-img-top {
@@ -35,7 +35,7 @@ img.card-img-top {
 }
 
 .card-body {
-    padding-top: 0;
+    padding-top: 10px;
     padding-bottom: 0;
 }
 
@@ -62,6 +62,10 @@ img.card-img-top {
     
     i.bi {
         font-size: medium; 
+    }
+
+    .maker-card-image {
+        height: 90px;
     }
 
     img.card-img-top {
