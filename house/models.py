@@ -19,11 +19,15 @@ class MakerCard(models.Model):
         costavg = Expense.objects.filter(tenant=self.pk).aggregate(Avg('cost')) ["cost__avg"]
         if costavg == None:
             return 0.0
+        else:
+            costavg = round(costavg,2)
         return costavg
     def get_landarea_avg(self):
         landareaavg = Expense.objects.filter(tenant=self.pk).aggregate(Avg('landarea'))["landarea__avg"]
         if landareaavg == None:
             return 0.0
+        else:
+            landareaavg = round(landareaavg,2)
         return landareaavg
     def get_rateavg(self):
         avgrateavg = Reviews.objects.filter(tenant=self.pk).aggregate(Avg('avgrate'))["avgrate__avg"]
