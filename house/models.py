@@ -7,6 +7,8 @@ class MakerCard(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
     images = models.ImageField(upload_to='')
+    create_date = models.DateTimeField(blank=True, null=True)
+    update_date = models.DateTimeField(blank=True, null=True)
     def __str__(self):
         return self.name
     def get_review_count(self):
@@ -63,7 +65,9 @@ class Reviews(models.Model):
     salescomment = models.TextField()
     avgrate = models.DecimalField(max_digits=3,decimal_places=2)
     tenant = models.IntegerField()
-    images = models.ImageField(upload_to='', blank=True, null=True)
+    image = models.ImageField(upload_to='review/', blank=True, null=True)
+    create_date = models.DateTimeField(blank=True, null=True)
+    update_date = models.DateTimeField(blank=True, null=True)
     def __str__(self):
         object = MakerCard.objects.get(pk=self.tenant)
         return object.name + "-" + self.author
@@ -74,9 +78,13 @@ class Expense(models.Model):
     author = models.CharField(max_length=100)
     cost = models.IntegerField()
     landarea = models.IntegerField()
-    comment = models.TextField()
-    images = models.ImageField(upload_to='', blank=True, null=True)
+    gradecomment = models.TextField()
+    costupcomment = models.TextField()
+    costdowncomment = models.TextField()
+    image = models.ImageField(upload_to='expense/', blank=True, null=True)
     tenant = models.IntegerField()
+    create_date = models.DateTimeField(blank=True, null=True)
+    update_date = models.DateTimeField(blank=True, null=True)
     def __str__(self):
         return self.author
     class Meta:

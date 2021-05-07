@@ -1,8 +1,11 @@
+from .models import MakerCard, Reviews, Expense
+
+from django.utils import timezone
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-from .models import MakerCard, Reviews, Expense
 from django.contrib.auth.decorators import login_required
+
 
 def indexfunc(request):
     return render(request, 'index.html')
@@ -76,6 +79,7 @@ def postreviewfunc(request, pk):
             post.guaranteerate = request.POST['guaranteerate']
             post.salescomment = request.POST['salescomment']
             post.salesrate = request.POST['salesrate']
+            post.update_date = timezone.now()
             post.save()
             return redirect('review', pk=pk)
         else:
@@ -106,7 +110,9 @@ def postreviewfunc(request, pk):
                      + int(request.POST['attachrate'])
                      + int(request.POST['guaranteerate'])
                      + int(request.POST['salesrate']) )/ 7,
-                tenant = pk
+                tenant = pk,
+                create_date = timezone.now(),
+                update_date = timezone.now()
             )
             post.save()
             return redirect('review', pk=pk)
@@ -117,11 +123,66 @@ def postreviewfunc(request, pk):
 @login_required
 def postexpensefunc(request, pk):
     object = MakerCard.objects.get(pk=pk)
-    return render(request, 'upexpense.html', {'object':object})
+    user = request.user
+    try:
+        post = Expense.objects.get(author=user.username, tenant=pk)
+        # 更新する場合
+        if request.method == 'POST':
+            post.cost = request.POST['cost'],
+            post.landarea = request.POST['landarea'],
+            post.gradecomment = request.POST['gradecomment'],
+            post.costupcomment = request.POST['costupcomment'],
+            post.costdowncomment = request.POST['costdowncomment'],
+            #post.image = request.FILES.get('image'),
+            post.update_date = timezone.now()
+            post.save()
+            print("update root end")
+            return redirect('expense', pk=pk)
+        else:
+            context = {
+                'object':object, 
+                'post':post,
+                'isPosted':True,
+            }
+            return render(request, 'postexpense.html',context) 
+    except Exception as e:
+        # 新規作成する場合
+        if request.method == 'POST':
+            print(e)
+            print("create root")
+            post = Expense.objects.create(
+                author = user.username,
+                cost = request.POST['cost'],
+                landarea = request.POST['landarea'],
+                gradecomment = request.POST['gradecomment'],
+                costupcomment = request.POST['costupcomment'],
+                costdowncomment = request.POST['costdowncomment'],
+                #image = request.FILES.get('image'),
+                tenant = pk,
+                create_date = timezone.now(),
+                update_date = timezone.now()
+            )
+            post.save()
+            print("create root end")
+            return redirect('expense', pk=pk)
+        else:
+            context = {
+                'object':object, 
+                'post':"",
+                'isPosted':True,
+            }
+            return render(request, 'postexpense.html', context)
 
 @login_required
 def deletereviewfunc(request, pk):
     user = request.user
     post = Reviews.objects.get(author=user.username, tenant=pk)
+    post.delete()
+    return redirect('review', pk=pk)
+
+@login_required
+def deleteexpensefunc(request, pk):
+    user = request.user
+    post = Expense.objects.get(author=user.username, tenant=pk)
     post.delete()
     return redirect('review', pk=pk)

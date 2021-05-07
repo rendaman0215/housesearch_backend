@@ -14,8 +14,17 @@
       <div class="card-body">
         <p class="card-text">投稿者：{{item.author}}</p>
         <p class="card-text">費用：{{item.cost}}万円</p>
-        <p class="card-text">コメント：{{item.comment}}</p>
-        <img src='{{item.images.url}}' alt={{object.name}} title={{object.name}} width=100%%>
+        <p class="card-text">設備にグレード：{{item.gradecomment}}</p>
+        <p class="card-text">値上がりするポイント：{{item.costupcomment}}</p>
+        <p class="card-text">値下がりするポイント：{{item.costdowncomment}}</p>
+        {% if item.image %}
+          <img src='{{item.image.url}}' alt={{object.name}} title={{object.name}} width=100%%>
+        {% endif %}
+        {% if item.author == user.username%}
+          <form method="POST" action="{% url 'deleteexpense' object.pk %}">{% csrf_token %}
+            <button class="btn btn-outline-primary" type="submit">削除する</a>
+          </form>
+        {% endif %}
       </div>
     </div>
   </div>

@@ -5,7 +5,7 @@
 
 {% block content %}
 <div class="py-3 col-9 mx-auto">
-    <form class="needs-validation" method="POST" action=''>{% csrf_token %}
+    <form class="needs-validation" method="POST" action='' enctype=”multipart/form-data” >{% csrf_token %}
         <h3 class="mb-5">口コミ投稿</h3>
         <div class="my-3">
             <p class="form-label">現在の状態を教えてください</p>
@@ -27,7 +27,7 @@
                 <option value="1">1 大変不満</option>
             </select>
             <p class="form-label">口コミ内容を入力してください</p>
-            <textarea type="text" class="form-control" name='costcomment' required autofocus>{{post.costcomment}}</textarea>
+            <textarea type="text" class="form-control" name='costcomment' required >{{post.costcomment}}</textarea>
         </div>
         <div class="my-3">
             <p class="form-label">デザインはいかがでしたか？</p>
@@ -40,7 +40,7 @@
                 <option value="1">1 大変不満</option>
             </select>
             <p class="form-label">口コミ内容を入力してください</p>
-            <textarea type="text" class="form-control" name='designcomment' required autofocus>{{post.designcomment}}</textarea>
+            <textarea type="text" class="form-control" name='designcomment' required >{{post.designcomment}}</textarea>
         </div>
         <div class="my-3">
             <p class="form-label">間取りはいかがでしたか？</p>
@@ -53,7 +53,7 @@
                 <option value="1">1 大変不満</option>
             </select>
             <p class="form-label">口コミ内容を入力してください</p>
-            <textarea type="text" class="form-control" name='layoutcomment' required autofocus>{{post.layoutcomment}}</textarea>
+            <textarea type="text" class="form-control" name='layoutcomment' required >{{post.layoutcomment}}</textarea>
         </div>
         <div class="my-3">
             <p class="form-label">住居の性能はいかがでしたか？</p>
@@ -66,7 +66,7 @@
                 <option value="1">1 大変不満</option>
             </select>
             <p class="form-label">口コミ内容を入力してください</p>
-            <textarea type="text" class="form-control" name='speccomment' required autofocus>{{post.speccomment}}</textarea>
+            <textarea type="text" class="form-control" name='speccomment' required >{{post.speccomment}}</textarea>
         </div>
         <div class="my-3">
             <p class="form-label">付帯設備はいかがでしたか？</p>
@@ -79,7 +79,7 @@
                 <option value="1">1 大変不満</option>
             </select>
             <p class="form-label">口コミ内容を入力してください</p>
-            <textarea type="text" class="form-control" name='attachcomment' required autofocus>{{post.attachcomment}}</textarea>
+            <textarea type="text" class="form-control" name='attachcomment' required >{{post.attachcomment}}</textarea>
         </div>
         <div class="my-3">
             <p class="form-label">保証はいかがでしたか？</p>
@@ -92,7 +92,7 @@
                 <option value="1">1 大変不満</option>
             </select>
             <p class="form-label">口コミ内容を入力してください</p>
-            <textarea type="text" class="form-control" name='guaranteecomment' required autofocus>{{post.guaranteecomment}}</textarea>
+            <textarea type="text" class="form-control" name='guaranteecomment' required >{{post.guaranteecomment}}</textarea>
         </div>
         <div class="my-3">
             <p class="form-label">担当営業はいかがでしたか？</p>
@@ -105,7 +105,7 @@
                 <option value="1">1 大変不満</option>
             </select>
             <p class="form-label">口コミ内容を入力してください</p>
-            <textarea type="text" class="form-control" name='salescomment' required autofocus>{{post.salescomment}}</textarea>
+            <textarea type="text" class="form-control" name='salescomment' required >{{post.salescomment}}</textarea>
         </div>
         <hr class="my-4">
         {% if isPosted %}

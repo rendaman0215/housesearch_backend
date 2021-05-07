@@ -1,5 +1,5 @@
 from django.urls import path,include
-from .views import signupfunc, loginfunc, listfunc, logoutfunc, detailfunc, indexfunc, reviewfunc, expensefunc, postreviewfunc, postexpensefunc, deletereviewfunc
+from .views import signupfunc, loginfunc, listfunc, logoutfunc, detailfunc, indexfunc, reviewfunc, expensefunc, postreviewfunc, postexpensefunc, deletereviewfunc, deleteexpensefunc
 
 urlpatterns = [
     path('', listfunc, name='index'),
@@ -13,4 +13,5 @@ urlpatterns = [
     path('postreview/<int:pk>', postreviewfunc, name='postreview'),
     path('postexpense/<int:pk>', postexpensefunc, name='postexpense'),
     path('deletereview/<int:pk>', deletereviewfunc, name='deletereview'),
+    path('deleteexpense/<int:pk>', deleteexpensefunc, name='deleteexpense'),
 ]
