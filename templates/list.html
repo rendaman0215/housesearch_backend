@@ -6,6 +6,10 @@
 
 {% endblock customcss %}
 
+{% block customjs %}
+<script src="{% static 'list.js' %}" defer></script>
+{% endblock customjs %}
+
 {% block content %}
 <div class="top-logo position-relative overflow-hidden p-2 p-md-2 m-md-2 text-center">
   <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
@@ -49,8 +53,18 @@
     <p>こだわりや特徴を見比べて、最適な依頼先を見つけましょう。</p>
   </div>
 </div>
+<div class="py-5">
+  <div class="col-6 mx-auto">
+    <div id="app">
+      <input type="text" v-model="keyword" class="searchbox" type="text" placeholder="例）メーカー名など">
+      <div v-for="user in filteredUsers" :key="user.id">
+          <p v-text="user.name"></p>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="row row-cols-1 row-cols-md-2 g-0 col-md-10 mx-auto py-3">
-  {% for item in object_list %}  
+  {% for item in maker_list %}  
     <div class="card-container">
       <div class="mx-auto px-4 col" style="max-width: 720px;">
         <a class="my-3" href="{% url 'detail' item.pk %}">
@@ -77,4 +91,6 @@
     </div>
   {% endfor %}
 </div>
+<script>
+</script>
 {% endblock content %}

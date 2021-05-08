@@ -1,5 +1,9 @@
 from .models import MakerCard, Reviews, Expense
 from .forms import ExpenseForm
+from .serializer import MakerCardSerializer
+
+import django_filters
+from rest_framework import viewsets, filters
 
 from django.utils import timezone
 from django.shortcuts import render,redirect
@@ -30,19 +34,21 @@ def loginfunc(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('list')
+            return redirect('/')
         else:  
             return redirect('login')
     return render(request, 'login.html')
 
 def listfunc(request):
-    object_list = MakerCard.objects.all()
-    review_list = Reviews.objects.all()
-    return render(request, 'list.html', {'object_list':object_list, 'review_list':review_list})
+    maker_list = MakerCard.objects.all()
+    context = {
+        'maker_list':maker_list, 
+    }
+    return render(request, 'list.html', context)
 
 def logoutfunc(request):
     logout(request)
-    return redirect('list')
+    return redirect('/')
 
 def detailfunc(request, pk):
     object = MakerCard.objects.get(pk=pk)
@@ -199,3 +205,7 @@ def deleteexpensefunc(request, pk):
     post = Expense.objects.get(author=user.username, tenant=pk)
     post.delete()
     return redirect('expense', pk=pk)
+
+class MakerCardViewSet(viewsets.ModelViewSet):
+    queryset = MakerCard.objects.all()
+    serializer_class = MakerCardSerializer

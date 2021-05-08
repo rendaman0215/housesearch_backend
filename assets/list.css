@@ -2,6 +2,13 @@
     border-top: solid 1px #BCBCBC;
     border-bottom: solid 1px #BCBCBC;
 }
+input.searchbox {
+    width: 100%;
+    padding-left: 5%;
+    line-height: 2.0;
+    border-radius:25px;
+    outline:0;
+}
 
 p.card-text {
     font-family: 'Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3', sans-serif;
@@ -11,7 +18,7 @@ p.card-text {
     line-height: 0.5;
 }
 
-i.bi {
+i.rateicon {
     font-size: large; 
 }
 
@@ -67,7 +74,7 @@ img.card-img-top {
         padding-bottom: 0;
     }
     
-    i.bi {
+    i.rateicon {
         font-size: medium; 
     }
 
@@ -99,7 +106,7 @@ img.card-img-top {
         padding-bottom: 0;
     }
     
-    i.bi {
+    i.rateicon {
         font-size: medium; 
     }
 

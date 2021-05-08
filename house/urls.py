@@ -1,5 +1,9 @@
 from django.urls import path,include
-from .views import signupfunc, loginfunc, listfunc, logoutfunc, detailfunc, indexfunc, reviewfunc, expensefunc, postreviewfunc, postexpensefunc, deletereviewfunc, deleteexpensefunc
+from .views import signupfunc, loginfunc, listfunc, logoutfunc, detailfunc, indexfunc, reviewfunc, expensefunc, postreviewfunc, postexpensefunc, deletereviewfunc, deleteexpensefunc, MakerCardViewSet
+from rest_framework import routers
+
+router = routers.DefaultRouter()
+router.register('makers', MakerCardViewSet)
 
 urlpatterns = [
     path('', listfunc, name='index'),

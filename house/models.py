@@ -5,6 +5,9 @@ from decimal import Decimal
 
 class MakerCard(models.Model):
     name = models.CharField(max_length=100)
+    name_hira = models.CharField(max_length=100)
+    name_kata = models.CharField(max_length=100)
+    name_eng = models.CharField(max_length=100)
     description = models.TextField()
     images = models.ImageField(upload_to='')
     create_date = models.DateTimeField(blank=True, null=True)
@@ -40,11 +43,11 @@ class MakerCard(models.Model):
         ratestr = ""
         rateavg = self.get_rateavg()
         for i in range(int(rateavg)):
-            ratestr += '<i class="bi bi-star-fill"></i>'
+            ratestr += '<i class="bi bi-star-fill rateicon"></i>'
         if float(rateavg) - float(int(rateavg)) >= 0.5 and rateavg!=5.0:
-            ratestr += '<i class="bi bi-star-half"></i>'
+            ratestr += '<i class="bi bi-star-half rateicon"></i>'
         for i in range(int(5.0-float(rateavg))):
-            ratestr += '<i class="bi bi-star"></i>'
+            ratestr += '<i class="bi bi-star rateicon"></i>'
         return ratestr
     class Meta:
         verbose_name = "メーカー"

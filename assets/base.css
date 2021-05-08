@@ -47,3 +47,18 @@ a:visited {
   color: #333;
   text-decoration: none;
 }
+
+.nav-item {
+  font-size: 14px;
+}
+
+i.bi-house-door {
+  font-size: x-large;
+}
+
+/* スマホ用 */
+@media screen and (max-width:480px) { 
+  .nav-item {
+    font-size: 12px;
+  }
+}

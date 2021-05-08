@@ -19,12 +19,16 @@
 
     <!-- VUE.js -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-    
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script> 
+
     <!-- base CSS -->
     <link rel='stylesheet' type='text/css' href="{% static 'base.css' %}">
     
     {% block customcss %}
     {% endblock customcss %}
+    {% block customjs %}
+    {% endblock customjs %}
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-3WBC205G07"></script>
@@ -47,13 +51,13 @@
     <meta property="og:title" content="ハウスメーカー日本最大級口コミサイト HOUSE SEARCH">
     <meta property="og:description" content="全国のハウスメーカーの口コミ、費用明細が見られるのはHOUSE SEARCHだけ！人気のハウスメーカーランキングや工務店、設計事務所も検索">
     <meta property="og:site_name" content="ハウスメーカー日本最大級口コミサイト HOUSE SEARCH">
-    <meta property='og:image' content='{% static "bg.jpg" %}'>
+    <meta property='og:image' content='{% static "hime.jpg" %}'>
 
   </head>
   <body>
     <nav class="navbar navbar-expand-md navbar-light nav-cust" aria-label="Fourth navbar example">
       <div class="container-fluid">
-          <a class="navbar-brand headline mx-auto text-center ps-3" href="{% url 'index' %}">HOUSE SEARCH</a>
+          <a class="navbar-brand headline mx-auto text-center" href="{% url 'index' %}"><i class="pe-2 bi bi-house-door"></i>HOUSE SEARCH</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -74,9 +78,6 @@
             </li>
           </ul>
           {% endif %}
-          <form>
-            <input class="form-control" type="text" placeholder="例）メーカー名など">
-          </form>
         </div>
       </div>
     </nav>
