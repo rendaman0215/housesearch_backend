@@ -1,9 +1,12 @@
 from .models import MakerCard, Reviews, Expense
 from .forms import ExpenseForm
-from .serializer import MakerCardSerializer
+from .serializer import MakerCardSerializer, ReviewSerializer
+from .permission import IsAdminOrReadOnly, IsMe
 
 import django_filters
+
 from rest_framework import viewsets, filters
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 
 from django.utils import timezone
 from django.shortcuts import render,redirect
@@ -203,5 +206,17 @@ def deleteexpensefunc(request, pk):
     return redirect('expense', pk=pk)
 
 class MakerCardViewSet(viewsets.ModelViewSet):
+     # モデル
     queryset = MakerCard.objects.all()
+    # ユーザー認証
+    permission_classes = [IsAdminOrReadOnly]
+    # シリアライザー
     serializer_class = MakerCardSerializer
+
+class ReviewViewSet(viewsets.ModelViewSet):
+    # モデル
+    queryset = Reviews.objects.all()
+    # ユーザー認証
+    permission_classes = [IsMe]
+    # シリアライザー
+    serializer_class = ReviewSerializer

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import MakerCard
+from .models import MakerCard, Reviews
 
 class MakerCardSerializer(serializers.ModelSerializer):
     image_url = serializers.SerializerMethodField()
@@ -10,3 +10,8 @@ class MakerCardSerializer(serializers.ModelSerializer):
         request = self.context.get('request')
         image_url = maker.images.url
         return request.build_absolute_uri(image_url)
+    
+class ReviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Reviews
+        fields = ('author', 'status', 'costrate', 'costcomment', 'designrate', 'designcomment', 'layoutrate', 'layoutcomment', 'specrate', 'speccomment', 'attachrate', 'attachcomment', 'guaranteerate', 'guaranteecomment', 'salesrate', 'salescomment', 'avgrate', 'tenant', 'create_date', 'update_date')
