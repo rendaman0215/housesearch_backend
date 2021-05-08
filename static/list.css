@@ -2,19 +2,28 @@
     border-top: solid 1px #BCBCBC;
     border-bottom: solid 1px #BCBCBC;
 }
+input.searchbox {
+    width: 100%;
+    padding-left: 5%;
+    line-height: 2.0;
+    border-radius:25px;
+    outline:0;
+}
 
 p.card-text {
     font-family: 'Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3', sans-serif;
-    font-size: 15px;
+    font-size: 14px;
     color: #000;
+    font-weight: 300;
+    line-height: 0.5;
 }
 
-i.bi {
+i.rateicon {
     font-size: large; 
 }
 
 .maker-card {
-    height: 230px;
+    height: 200px;
     background-color: #fff;
     transition: 0.5s;
 }
@@ -31,7 +40,7 @@ i.bi {
 
 img.card-img-top {
     height: auto;
-    width: 150px;
+    width: 100px;
 }
 
 .card-body {
@@ -65,7 +74,7 @@ img.card-img-top {
         padding-bottom: 0;
     }
     
-    i.bi {
+    i.rateicon {
         font-size: medium; 
     }
 
@@ -89,7 +98,7 @@ img.card-img-top {
         background-color: #f5f5f5;
     }
     p.card-text {
-        font-size: 13px;
+        font-size: 12px;
     }
     
     .card-body {
@@ -97,7 +106,7 @@ img.card-img-top {
         padding-bottom: 0;
     }
     
-    i.bi {
+    i.rateicon {
         font-size: medium; 
     }
 
