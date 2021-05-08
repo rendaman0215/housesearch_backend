@@ -21,7 +21,7 @@ var vm = new Vue({
       });
 },
     computed: {
-        filteredUsers: function() {
+        filteredMakers: function() {
             var makers = [];
             for(var i in this.makers) {
                 var maker = this.makers[i];
@@ -35,6 +35,6 @@ var vm = new Vue({
                 }
             }
             return makers;
-        }
+        },
     }
 });
