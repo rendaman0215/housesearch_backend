@@ -40,11 +40,7 @@ def loginfunc(request):
     return render(request, 'login.html')
 
 def listfunc(request):
-    maker_list = MakerCard.objects.all()
-    context = {
-        'maker_list':maker_list, 
-    }
-    return render(request, 'list.html', context)
+    return render(request, 'list.html', {})
 
 def logoutfunc(request):
     logout(request)
