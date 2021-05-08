@@ -67,7 +67,6 @@
             <div class="maker-card p-2">
               <div class="row">
                 <div class="col-5 maker-card-image">
-                  <img :src="icon"/>
                   <img v-bind:src="maker.image_url" v-bind:alt="maker.name" v-bind:title="maker.name" class="card-img-top" >
                 </div>
                 <div class="col-7 d-flex align-items-center">
@@ -79,7 +78,7 @@
                   <p class="card-text review-p"　v-html="maker.ratetostr"></p>
                   <p class="card-text review-p">[[ parseFloat(maker.get_rateavg).toFixed(1) ]] | 口コミ：[[ maker.get_review_count ]]件</p>
 <br>
-                  <p class="card-text review-p">平均費用：[[ parseFloat(maker.get_expense_avg).toFixed(1) ]]万円 | 費用明細：[[ makerget_expense_count ]]件</p><br>
+                  <p class="card-text review-p">平均費用：[[ parseFloat(maker.get_expense_avg).toFixed(1) ]]万円 | 費用明細：[[ maker.get_expense_count ]]件</p><br>
                   <p class="card-text review-p">平均坪数：[[ parseFloat(maker.get_landarea_avg).toFixed(1) ]]坪</p>
                 </div>
               </div>
