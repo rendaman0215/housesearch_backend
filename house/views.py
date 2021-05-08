@@ -1,4 +1,5 @@
 from .models import MakerCard, Reviews, Expense
+from .forms import ExpenseForm
 
 from django.utils import timezone
 from django.shortcuts import render,redirect
@@ -63,115 +64,127 @@ def postreviewfunc(request, pk):
     object = MakerCard.objects.get(pk=pk)
     user = request.user
     try:
-        post = Reviews.objects.get(author=user.username, tenant=pk)
-        if request.method == 'POST':
-            post.costcomment = request.POST['costcomment']
-            post.costrate = request.POST['costrate']
-            post.designcomment = request.POST['designcomment']
-            post.designrate = request.POST['designrate']
-            post.layoutcomment = request.POST['layoutcomment']
-            post.layoutrate = request.POST['layoutrate']
-            post.speccomment = request.POST['speccomment']
-            post.specrate = request.POST['specrate']
-            post.attachcomment = request.POST['attachcomment']
-            post.attachrate = request.POST['attachrate']
-            post.guaranteecomment = request.POST['guaranteecomment']
-            post.guaranteerate = request.POST['guaranteerate']
-            post.salescomment = request.POST['salescomment']
-            post.salesrate = request.POST['salesrate']
-            post.update_date = timezone.now()
-            post.save()
-            return redirect('review', pk=pk)
+        # 対象のユーザ×テナントの口コミが既に存在している場合
+        if (Reviews.objects.filter(author=user.username, tenant=pk).exists()):
+            post = Reviews.objects.get(author=user.username, tenant=pk)
+            if request.method == 'POST':
+                post.costcomment = request.POST['costcomment']
+                post.costrate = request.POST['costrate']
+                post.designcomment = request.POST['designcomment']
+                post.designrate = request.POST['designrate']
+                post.layoutcomment = request.POST['layoutcomment']
+                post.layoutrate = request.POST['layoutrate']
+                post.speccomment = request.POST['speccomment']
+                post.specrate = request.POST['specrate']
+                post.attachcomment = request.POST['attachcomment']
+                post.attachrate = request.POST['attachrate']
+                post.guaranteecomment = request.POST['guaranteecomment']
+                post.guaranteerate = request.POST['guaranteerate']
+                post.salescomment = request.POST['salescomment']
+                post.salesrate = request.POST['salesrate']
+                post.update_date = timezone.now()
+                post.save()
+                return redirect('review', pk=pk)
+            else:
+                return render(request, 'postreview.html',{'object':object, 'post':post, 'isPosted':True}) 
+            # 対象のユーザ×テナントの口コミが存在しない場合
         else:
-            return render(request, 'postreview.html',{'object':object, 'post':post, 'isPosted':True}) 
-    except:
-        if request.method == 'POST':
-            post = Reviews.objects.create(
-                author = user.username,
-                costcomment = request.POST['costcomment'],
-                costrate = request.POST['costrate'],
-                designcomment = request.POST['designcomment'],
-                designrate = request.POST['designrate'],
-                layoutcomment = request.POST['layoutcomment'],
-                layoutrate = request.POST['layoutrate'],
-                speccomment = request.POST['speccomment'],
-                specrate = request.POST['specrate'],
-                attachcomment = request.POST['attachcomment'],
-                attachrate = request.POST['attachrate'],
-                guaranteecomment = request.POST['guaranteecomment'],
-                guaranteerate = request.POST['guaranteerate'],
-                salescomment = request.POST['salescomment'],
-                salesrate = request.POST['salesrate'],
-                avgrate = float(
-                    int(request.POST['costrate'])
-                     + int(request.POST['designrate'])
-                     + int(request.POST['layoutrate'])
-                     + int(request.POST['specrate'])
-                     + int(request.POST['attachrate'])
-                     + int(request.POST['guaranteerate'])
-                     + int(request.POST['salesrate']) )/ 7,
-                tenant = pk,
-                create_date = timezone.now(),
-                update_date = timezone.now()
-            )
-            post.save()
-            return redirect('review', pk=pk)
-        else:
-            return render(request, 'postreview.html',{'object':object,'post':"", 'isPosted':False})
+            if request.method == 'POST':
+                post = Reviews.objects.create(
+                    author = user.username,
+                    costcomment = request.POST['costcomment'],
+                    costrate = request.POST['costrate'],
+                    designcomment = request.POST['designcomment'],
+                    designrate = request.POST['designrate'],
+                    layoutcomment = request.POST['layoutcomment'],
+                    layoutrate = request.POST['layoutrate'],
+                    speccomment = request.POST['speccomment'],
+                    specrate = request.POST['specrate'],
+                    attachcomment = request.POST['attachcomment'],
+                    attachrate = request.POST['attachrate'],
+                    guaranteecomment = request.POST['guaranteecomment'],
+                    guaranteerate = request.POST['guaranteerate'],
+                    salescomment = request.POST['salescomment'],
+                    salesrate = request.POST['salesrate'],
+                    avgrate = float(
+                        int(request.POST['costrate'])
+                         + int(request.POST['designrate'])
+                         + int(request.POST['layoutrate'])
+                         + int(request.POST['specrate'])
+                         + int(request.POST['attachrate'])
+                         + int(request.POST['guaranteerate'])
+                         + int(request.POST['salesrate']) )/ 7,
+                    tenant = pk,
+                    create_date = timezone.now(),
+                    update_date = timezone.now()
+                )
+                post.save()
+                return redirect('review', pk=pk)
+            else:
+                return render(request, 'postreview.html',{'object':object,'post':"", 'isPosted':False})
+    except Exception as e:
+        print(e)
     return render(request, 'postreview.html',{'object':object})
 
 @login_required
 def postexpensefunc(request, pk):
     object = MakerCard.objects.get(pk=pk)
     user = request.user
+    form = ExpenseForm()
     try:
-        post = Expense.objects.get(author=user.username, tenant=pk)
-        # 更新する場合
-        if request.method == 'POST':
-            post.cost = request.POST['cost'],
-            post.landarea = request.POST['landarea'],
-            post.gradecomment = request.POST['gradecomment'],
-            post.costupcomment = request.POST['costupcomment'],
-            post.costdowncomment = request.POST['costdowncomment'],
-            #post.image = request.FILES.get('image'),
-            post.update_date = timezone.now()
-            post.save()
-            print("update root end")
-            return redirect('expense', pk=pk)
+        # 対象のユーザ × テナントの費用明細が既に存在している場合
+        if (Expense.objects.filter(author=user.username, tenant=pk).exists()):
+            post = Expense.objects.get(author=user.username, tenant=pk)
+            if request.method == 'POST':
+                post.cost = request.POST['cost']
+                post.landarea = request.POST['landarea']
+                post.gradecomment = request.POST['gradecomment']
+                post.costupcomment = request.POST['costupcomment']
+                post.costdowncomment = request.POST['costdowncomment']
+                #post.image = request.FILES.get('image')
+                post.update_date = timezone.now()
+                post.save()
+                #form = ExpenseForm(request.FILES)
+                #form.save()
+                return redirect('expense', pk=pk)
+            else:
+                context = {
+                    'object':object, 
+                    'post':post,
+                    'isPosted':True,
+                    'form':form,
+                }
+                return render(request, 'postexpense.html',context) 
+        # 対象のユーザ × テナントの費用明細が存在していない場合
         else:
-            context = {
-                'object':object, 
-                'post':post,
-                'isPosted':True,
-            }
-            return render(request, 'postexpense.html',context) 
+            if request.method == 'POST':
+                post = Expense.objects.create(
+                    author = user.username,
+                    cost = request.POST['cost'],
+                    landarea = request.POST['landarea'],
+                    gradecomment = request.POST['gradecomment'],
+                    costupcomment = request.POST['costupcomment'],
+                    costdowncomment = request.POST['costdowncomment'],
+                    #image = request.FILES.get('image'),
+                    tenant = pk,
+                    create_date = timezone.now(),
+                    update_date = timezone.now()
+                )
+                post.save()
+                form = ExpenseForm(request.FILES)
+                form.save()
+                return redirect('expense', pk=pk)
+            else:
+                context = {
+                    'object':object, 
+                    'post':"",
+                    'isPosted':False,
+                    'form':form,
+                }
+                return render(request, 'postexpense.html', context)
     except Exception as e:
-        # 新規作成する場合
-        if request.method == 'POST':
-            print(e)
-            print("create root")
-            post = Expense.objects.create(
-                author = user.username,
-                cost = request.POST['cost'],
-                landarea = request.POST['landarea'],
-                gradecomment = request.POST['gradecomment'],
-                costupcomment = request.POST['costupcomment'],
-                costdowncomment = request.POST['costdowncomment'],
-                #image = request.FILES.get('image'),
-                tenant = pk,
-                create_date = timezone.now(),
-                update_date = timezone.now()
-            )
-            post.save()
-            print("create root end")
-            return redirect('expense', pk=pk)
-        else:
-            context = {
-                'object':object, 
-                'post':"",
-                'isPosted':True,
-            }
-            return render(request, 'postexpense.html', context)
+        print(e)
+    return render(request, 'postexpense.html',{'object':object})
 
 @login_required
 def deletereviewfunc(request, pk):
@@ -185,4 +198,4 @@ def deleteexpensefunc(request, pk):
     user = request.user
     post = Expense.objects.get(author=user.username, tenant=pk)
     post.delete()
-    return redirect('review', pk=pk)
+    return redirect('expense', pk=pk)

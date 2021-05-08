@@ -1,11 +1,18 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block customcss %}
+<link rel='stylesheet' type='text/css' href="{% static 'detail.css' %}">
 {% endblock customcss %}
 
 {% block content %}
 
 <p><a href="{% url 'detail' object.pk %}">{{object.name}}</a>の費用明細</p>
+<div class="revnav" >
+    <div class="text-center py-3">
+      <a class="col-3 mx-2" href="{% url 'postexpense' object.pk %}"><button class="w-30 btn btn-primary"> 費用明細を投稿する</button></a>
+    </div>
+</div>
 
 {% for item in expense_list %}
 <div class="card mb-3 mx-auto" style="max-width: 720px;">
@@ -14,7 +21,8 @@
       <div class="card-body">
         <p class="card-text">投稿者：{{item.author}}</p>
         <p class="card-text">費用：{{item.cost}}万円</p>
-        <p class="card-text">設備にグレード：{{item.gradecomment}}</p>
+        <p class="card-text">坪数：{{item.landarea}}坪</p>
+        <p class="card-text">設備グレード：{{item.gradecomment}}</p>
         <p class="card-text">値上がりするポイント：{{item.costupcomment}}</p>
         <p class="card-text">値下がりするポイント：{{item.costdowncomment}}</p>
         {% if item.image %}

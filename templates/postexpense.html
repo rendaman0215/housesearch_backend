@@ -8,10 +8,10 @@
     <form class="needs-validation" method="POST" action='' enctype=”multipart/form-data” >{% csrf_token %}
         <h3 class="mb-5">費用明細投稿</h3>
         <div class="my-3">
-            <p class="form-label">費用</p>
-            <textarea type="text" class="form-control" name='cost' required autofocus>{{post.cost}}</textarea>
-            <p class="form-label">坪</p>
-            <textarea type="text" class="form-control" name='landarea' required >{{post.landarea}}</textarea>
+            <p class="form-label">費用（万円）</p>
+            <input type="number" class="form-control" name='cost' required autofocus min="0" max="999999" value="{{post.cost}}">
+            <p class="form-label">広さ（坪）</p>
+            <input type="number" class="form-control" name='landarea' required min="0" max="9999" value="{{post.landarea}}">
             <p class="form-label">設備グレード</p>
             <textarea type="text" class="form-control" name='gradecomment' required >{{post.gradecomment}}</textarea>
             <p class="form-label">値上がりポイント</p>
@@ -19,7 +19,7 @@
             <p class="form-label">値下がりポイント</p>
             <textarea type="text" class="form-control" name='costdowncomment' required >{{post.costdowncomment}}</textarea>
             <p class="form-label">費用明細（画像）</p>
-            <input type="file" name="image" accept="image/*" id="id_images">
+            {{form.as_p}}
             <hr class="my-4">
             {% if isPosted %}
             <button class="w-100 btn btn-lg btn-primary" type="submit">編集する</button>

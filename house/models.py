@@ -20,14 +20,14 @@ class MakerCard(models.Model):
         if costavg == None:
             return 0.0
         else:
-            costavg = round(costavg,2)
+            costavg = round(costavg,1)
         return costavg
     def get_landarea_avg(self):
         landareaavg = Expense.objects.filter(tenant=self.pk).aggregate(Avg('landarea'))["landarea__avg"]
         if landareaavg == None:
             return 0.0
         else:
-            landareaavg = round(landareaavg,2)
+            landareaavg = round(landareaavg,1)
         return landareaavg
     def get_rateavg(self):
         avgrateavg = Reviews.objects.filter(tenant=self.pk).aggregate(Avg('avgrate'))["avgrate__avg"]
@@ -74,7 +74,7 @@ class Reviews(models.Model):
     update_date = models.DateTimeField(blank=True, null=True)
     def __str__(self):
         object = MakerCard.objects.get(pk=self.tenant)
-        return object.name + "-" + self.author
+        return object.name + " : " + self.author
     class Meta:
         verbose_name = "口コミ"
 
@@ -90,6 +90,8 @@ class Expense(models.Model):
     create_date = models.DateTimeField(blank=True, null=True)
     update_date = models.DateTimeField(blank=True, null=True)
     def __str__(self):
-        return self.author
+        object = MakerCard.objects.get(pk=self.tenant)
+        return object.name + " : " + self.author
+
     class Meta:
         verbose_name = "費用明細"

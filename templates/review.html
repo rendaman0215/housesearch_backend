@@ -1,11 +1,18 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block customcss %}
+<link rel='stylesheet' type='text/css' href="{% static 'detail.css' %}">
 {% endblock customcss %}
 
 {% block content %}
 
 <p><a href="{% url 'detail' object.pk %}">{{object.name}}</a>の口コミ</p>
+<div class="revnav" >
+    <div class="text-center py-3">
+      <a class="col-3 mx-2" href="{% url 'postexpense' object.pk %}"><button class="w-30 btn btn-primary"> 費用明細を投稿する</button></a>
+    </div>
+</div>
 
 {% for item in review_list %}
 <div class="card mb-3 mx-auto">
