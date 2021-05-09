@@ -19,7 +19,7 @@ var vm = new Vue({
       })
       .then(function () {
       });
-},
+    },
     computed: {
         filteredMakers: function() {
             var makers = [];

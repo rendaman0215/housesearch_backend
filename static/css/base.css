@@ -1,0 +1,64 @@
+body {
+  font-family: 'Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3', sans-serif;
+}
+
+footer.container {
+  font-family: 'Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3', sans-serif;
+}
+
+i.footshare {
+  font-size: 24px;
+}
+
+.footshare{
+  font-size: 16px;
+}
+
+.headline {
+  font-family: 'ヒラギノ明朝 ProN', 'Hiragino Mincho ProN', sans-serif;
+  font-weight: bold; 
+}
+
+.nav-cust {
+  border-bottom: solid 1px #BCBCBC;
+}
+
+a {
+  color: #333;
+  text-decoration: none;
+}
+
+a:hover {
+    color: #333;
+    text-decoration: none;
+}
+  
+a:active {
+    color: #333;
+    text-decoration: none;
+}
+  
+a.no-color-change {
+    color: #333;
+    text-decoration: none;
+}
+
+a:visited {
+  color: #333;
+  text-decoration: none;
+}
+
+.nav-item {
+  font-size: 14px;
+}
+
+i.bi-house-door {
+  font-size: x-large;
+}
+
+/* スマホ用 */
+@media screen and (max-width:480px) { 
+  .nav-item {
+    font-size: 12px;
+  }
+}

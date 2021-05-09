@@ -2,8 +2,12 @@
 {% load static %}
 
 {% block customcss %}
-<link rel='stylesheet' type='text/css' href="{% static 'detail.css' %}">
+<link rel='stylesheet' type='text/css' href="{% static 'css/review.css' %}">
 {% endblock customcss %}
+
+{% block customjs %}
+<script src="{% static 'js/review.js' %}" defer></script>
+{% endblock customjs %}
 
 {% block content %}
 
@@ -12,6 +16,37 @@
     <div class="text-center py-3">
       <a class="col-3 mx-2" href="{% url 'postexpense' object.pk %}"><button class="w-30 btn btn-primary"> 費用明細を投稿する</button></a>
     </div>
+</div>
+<div id="app">
+  <div class="row row-cols-1 row-cols-md-2 g-0 col-md-10 mx-auto py-3">
+    <div v-for="review in reviews" :key="review.pk">
+      <div class="card-container">
+        <div class="mx-auto px-4 col card-col">
+          <a class="my-3" v-bind:href="'/detail/' + maker.pk">
+            <div class="maker-card p-2">
+              <div class="row">
+                <div class="col-5 maker-card-image">
+                  <img v-bind:src="maker.image_url" v-bind:alt="maker.name" v-bind:title="maker.name" class="card-img-top" >
+                </div>
+                <div class="col-7 d-flex align-items-center">
+                  <p class="card-title ps-3">[[maker.name]]</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="card-body">
+                  <p class="card-text review-p"　v-html="maker.ratetostr"></p>
+                  <p class="card-text review-p">[[ parseFloat(maker.get_rateavg).toFixed(1) ]] | 口コミ：[[ maker.get_review_count ]]件</p><br>
+                  <p class="card-text review-p">平均費用：[[ parseFloat(maker.get_expense_avg).toFixed(1) ]]万円 | 費用明細：[[ maker.get_expense_count ]]件</p><br>
+                  <p class="card-text review-p">平均坪数：[[ parseFloat(maker.get_landarea_avg).toFixed(1) ]]坪</p>
+                </div>
+              </div>
+            </div>
+          </a>
+          <hr class="my-3">
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 {% for item in review_list %}
