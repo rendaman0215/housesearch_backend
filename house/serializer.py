@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from .models import MakerCard, Reviews
+from .models import MakerCard, Reviews, Expense
+from django.contrib.auth.models import User
 
 class MakerCardSerializer(serializers.ModelSerializer):
     image_url = serializers.SerializerMethodField()
@@ -15,3 +16,20 @@ class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Reviews
         fields = ('author', 'status', 'costrate', 'costcomment', 'designrate', 'designcomment', 'layoutrate', 'layoutcomment', 'specrate', 'speccomment', 'attachrate', 'attachcomment', 'guaranteerate', 'guaranteecomment', 'salesrate', 'salescomment', 'avgrate', 'tenant', 'create_date', 'update_date')
+
+class ExpenseSerializer(serializers.ModelSerializer):
+    image_url = serializers.SerializerMethodField()
+    class Meta:
+        model = Expense()
+        fields = ('author', 'cost', 'landarea', 'gradecomment', 'costupcomment', 'costdowncomment', 'image_url', 'tenant', 'create_date', 'update_date')
+    def get_image_url(self, expense):
+        request = self.context.get('request')
+        image_url = ""
+        if expense.image:
+            image_url = request.build_absolute_uri(expense.image.url)
+        return image_url
+
+class CurrentUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('username',)

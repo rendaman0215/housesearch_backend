@@ -1,7 +1,7 @@
 from .models import MakerCard, Reviews, Expense
 from .forms import ExpenseForm
-from .serializer import MakerCardSerializer, ReviewSerializer
-from .permission import IsAdminOrReadOnly, IsMe
+from .serializer import MakerCardSerializer, ReviewSerializer, CurrentUserSerializer, ExpenseSerializer
+from .permission import IsAdminOrReadOnly, IsMeOrAdminOrReadOnly
 
 import django_filters
 
@@ -206,6 +206,8 @@ def deleteexpensefunc(request, pk):
     return redirect('expense', pk=pk)
 
 class MakerCardViewSet(viewsets.ModelViewSet):
+    # キーを指定
+    lookup_field = "name_eng"
      # モデル
     queryset = MakerCard.objects.all()
     # ユーザー認証
@@ -217,6 +219,24 @@ class ReviewViewSet(viewsets.ModelViewSet):
     # モデル
     queryset = Reviews.objects.all()
     # ユーザー認証
-    permission_classes = [IsMe]
+    permission_classes = [IsMeOrAdminOrReadOnly]
     # シリアライザー
     serializer_class = ReviewSerializer
+
+class ExpenseViewSet(viewsets.ModelViewSet):
+    # モデル
+    queryset = Expense.objects.all()
+    # ユーザー認証
+    permission_classes = [IsMeOrAdminOrReadOnly]
+    # シリアライザー
+    serializer_class = ExpenseSerializer
+
+class CurrentUserViewSet(viewsets.ReadOnlyModelViewSet):
+    # キーを指定
+    lookup_field = "username"
+    # モデル
+    queryset = User.objects.all()
+    # ユーザー認証
+    permission_classes = [IsMeOrAdminOrReadOnly]
+    # シリアライザー
+    serializer_class = CurrentUserSerializer

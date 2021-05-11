@@ -1,10 +1,12 @@
 from django.urls import path,include
-from .views import signupfunc, loginfunc, listfunc, logoutfunc, detailfunc, indexfunc, reviewfunc, expensefunc, postreviewfunc, postexpensefunc, deletereviewfunc, deleteexpensefunc, MakerCardViewSet, ReviewViewSet
+from .views import signupfunc, loginfunc, listfunc, logoutfunc, detailfunc, indexfunc, reviewfunc, expensefunc, postreviewfunc, postexpensefunc, deletereviewfunc, deleteexpensefunc, MakerCardViewSet, ReviewViewSet, CurrentUserViewSet, ExpenseViewSet
 from rest_framework import routers
 
 router = routers.DefaultRouter()
 router.register('makers', MakerCardViewSet)
 router.register('reviews', ReviewViewSet)
+router.register('expense', ExpenseViewSet)
+router.register('users', CurrentUserViewSet)
 
 urlpatterns = [
     path('', listfunc, name='index'),
