@@ -1,13 +1,18 @@
+# Model, Form, Serializer, Permissionをimport
 from .models import MakerCard, Reviews, Expense
 from .forms import ExpenseForm
 from .serializer import MakerCardSerializer, ReviewSerializer, CurrentUserSerializer, ExpenseSerializer
 from .permission import IsAdminOrReadOnly, IsMeOrAdminOrReadOnly
 
+# 結果のフィルタリング用
 import django_filters
 
+# REST FRAMEWORK系
+from rest_framework import generics
 from rest_framework import viewsets, filters
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 
+# Djangoのもろもろ
 from django.utils import timezone
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
@@ -120,6 +125,7 @@ def postreviewfunc(request, pk):
                          + int(request.POST['guaranteerate'])
                          + int(request.POST['salesrate']) )/ 7,
                     tenant = pk,
+                    maker_name = MakerCard.objects.filter(pk=pk).name,
                     create_date = timezone.now(),
                     update_date = timezone.now()
                 )
@@ -222,6 +228,8 @@ class ReviewViewSet(viewsets.ModelViewSet):
     permission_classes = [IsMeOrAdminOrReadOnly]
     # シリアライザー
     serializer_class = ReviewSerializer
+    # フィルター
+    filter_fields = ('maker_name',) 
 
 class ExpenseViewSet(viewsets.ModelViewSet):
     # モデル
@@ -230,13 +238,5 @@ class ExpenseViewSet(viewsets.ModelViewSet):
     permission_classes = [IsMeOrAdminOrReadOnly]
     # シリアライザー
     serializer_class = ExpenseSerializer
-
-class CurrentUserViewSet(viewsets.ReadOnlyModelViewSet):
-    # キーを指定
-    lookup_field = "username"
-    # モデル
-    queryset = User.objects.all()
-    # ユーザー認証
-    permission_classes = [IsMeOrAdminOrReadOnly]
-    # シリアライザー
-    serializer_class = CurrentUserSerializer
+    # フィルター
+    filter_fields = ('maker_name',) 

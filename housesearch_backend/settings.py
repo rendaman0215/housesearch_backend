@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'rest_framework',#追加
     'rest_framework.authtoken', # 追加
     'corsheaders', #追加
+    'django_filters', #追加
 ]
 
 MIDDLEWARE = [
@@ -55,6 +56,7 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
     ),
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
 }
 
 JWT_AUTH = {
