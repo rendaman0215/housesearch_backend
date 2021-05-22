@@ -70,7 +70,7 @@ JWT_AUTH = {
 
 # 許可するオリジン
 CORS_ORIGIN_WHITELIST = [
-    'http://localhost:3000',
+    'http://localhost:3000', 'http://rendaman.net'
 ]
 # レスポンスを公開する
 CORS_ALLOW_CREDENTIALS = True
