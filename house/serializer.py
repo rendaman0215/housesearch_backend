@@ -30,7 +30,11 @@ class ExpenseSerializer(serializers.ModelSerializer):
             image_url = request.build_absolute_uri(expense.image.url)
         return image_url
 
-class CurrentUserSerializer(serializers.ModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(write_only=True, required=False)
     class Meta:
         model = User
         fields = ('username',)
+
+    def create(self, validated_data):
+        return Account.objects.create_user(request_data=validated_data)

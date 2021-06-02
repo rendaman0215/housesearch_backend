@@ -1,7 +1,7 @@
 # Model, Form, Serializer, Permissionをimport
 from .models import MakerCard, Reviews, Expense
 from .forms import ExpenseForm
-from .serializer import MakerCardSerializer, ReviewSerializer, CurrentUserSerializer, ExpenseSerializer
+from .serializer import MakerCardSerializer, ReviewSerializer, ExpenseSerializer, UserSerializer
 from .permission import IsAdminOrReadOnly, IsMeOrAdminOrReadOnly
 
 # 結果のフィルタリング用
@@ -9,7 +9,8 @@ import django_filters
 
 # REST FRAMEWORK系
 from rest_framework import generics
-from rest_framework import viewsets, filters
+from rest_framework import viewsets, filters, status
+from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 
 # Djangoのもろもろ
@@ -240,3 +241,10 @@ class ExpenseViewSet(viewsets.ModelViewSet):
     serializer_class = ExpenseSerializer
     # フィルター
     filter_fields = ('maker_name',) 
+
+class PingViewSet(generics.GenericAPIView):
+    # ユーザー認証
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request, format=None):
+        return Response(data={'username': request.user.username}, status=status.HTTP_200_OK)

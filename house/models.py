@@ -93,8 +93,10 @@ class MakerCard(models.Model):
         rateavg = self.get_rateavg()
         for i in range(int(rateavg)):
             ratestr += '<i class="bi bi-star-fill rateicon"></i>'
-        if float(rateavg) - float(int(rateavg)) >= 0.5 and rateavg!=5.0:
+        if float(rateavg) - float(int(rateavg)) <= 0.5 and rateavg!=5 and rateavg!=0:
             ratestr += '<i class="bi bi-star-half rateicon"></i>'
+        elif float(rateavg) - float(int(rateavg)) >= 0.5:
+            ratestr += '<i class="bi bi-star-fill rateicon"></i>'
         for i in range(int(5.0-float(rateavg))):
             ratestr += '<i class="bi bi-star rateicon"></i>'
         return ratestr
@@ -125,8 +127,8 @@ class Reviews(models.Model):
     image = models.ImageField(upload_to='review/', blank=True, null=True)
     create_date = models.DateTimeField(blank=True, null=True)
     update_date = models.DateTimeField(blank=True, null=True)
+
     def __str__(self):
-        object = MakerCard.objects.get(pk=self.tenant)
         return self.maker_name + " : " + self.author
     class Meta:
         verbose_name = "口コミ"
