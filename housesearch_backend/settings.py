@@ -102,8 +102,12 @@ WSGI_APPLICATION = 'housesearch_backend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'housesearch',
+        'USER': 'admin',                        # MySQLのユーザ名
+        'PASSWORD': 'kazsan0214',
+        'HOST': 'housesearch-dev.cznmdri9oxgl.ap-northeast-1.rds.amazonaws.com',
+        'PORT': '3306',
     }
 }
 
