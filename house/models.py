@@ -108,7 +108,7 @@ class MakerCard(models.Model):
     
 
 class Reviews(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    id = models.AutoField(primary_key=True)
     author = models.CharField(max_length=100)
     status = models.CharField(max_length=100)
     costrate = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)])
@@ -135,7 +135,7 @@ class Reviews(models.Model):
         verbose_name = "口コミ"
 
 class Expense(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    id = models.AutoField(primary_key=True)
     author = models.CharField(max_length=100)
     status = models.CharField(max_length=100)
     cost = models.IntegerField()
