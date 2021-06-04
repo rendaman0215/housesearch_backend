@@ -1,9 +1,12 @@
+import uuid
+
 from django.db import models
 from django.db.models import Avg
 from django.core.validators import MaxValueValidator, MinValueValidator
 from decimal import Decimal
 
 class MakerCard(models.Model):
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
     name_hira = models.CharField(max_length=100)
     name_kata = models.CharField(max_length=100)
@@ -105,7 +108,7 @@ class MakerCard(models.Model):
     
 
 class Reviews(models.Model):
-    title = models.CharField(max_length=100)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     author = models.CharField(max_length=100)
     status = models.CharField(max_length=100)
     costrate = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)])
@@ -124,9 +127,7 @@ class Reviews(models.Model):
     salescomment = models.TextField()
     avgrate = models.DecimalField(max_digits=3,decimal_places=2)
     maker_name = models.CharField(max_length=100)
-    image = models.ImageField(upload_to='review/', blank=True, null=True)
     create_date = models.DateTimeField(blank=True, null=True)
-    update_date = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
         return self.maker_name + " : " + self.author
@@ -134,8 +135,9 @@ class Reviews(models.Model):
         verbose_name = "口コミ"
 
 class Expense(models.Model):
-    status = models.CharField(max_length=100)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     author = models.CharField(max_length=100)
+    status = models.CharField(max_length=100)
     cost = models.IntegerField()
     landarea = models.IntegerField()
     gradecomment = models.TextField()
@@ -144,7 +146,6 @@ class Expense(models.Model):
     maker_name = models.CharField(max_length=100)
     image = models.ImageField(upload_to='expense/', blank=True, null=True)
     create_date = models.DateTimeField(blank=True, null=True)
-    update_date = models.DateTimeField(blank=True, null=True)
     def __str__(self):
         return self.maker_name + " : " + self.author
 
