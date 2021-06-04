@@ -1,7 +1,7 @@
 # Model, Form, Serializer, Permissionをimport
 from .models import MakerCard, Reviews, Expense
 from .forms import ExpenseForm
-from .serializer import MakerCardSerializer, ReviewSerializer, ExpenseSerializer, UserSerializer
+from .serializer import MakerCardSerializer, ReviewSerializer, ExpenseSerializer
 from .permission import IsAdminOrReadOnly, IsMeOrAdminOrReadOnly
 
 # 結果のフィルタリング用

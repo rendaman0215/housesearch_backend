@@ -15,26 +15,17 @@ class MakerCardSerializer(serializers.ModelSerializer):
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Reviews
-        fields = ('title', 'author', 'status', 'costrate', 'costcomment', 'designrate', 'designcomment', 'layoutrate', 'layoutcomment', 'specrate', 'speccomment', 'attachrate', 'attachcomment', 'guaranteerate', 'guaranteecomment', 'salesrate', 'salescomment', 'avgrate', 'maker_name', 'create_date', 'update_date')
+        fields = ('author', 'status', 'costrate', 'costcomment', 'designrate', 'designcomment', 'layoutrate', 'layoutcomment', 'specrate', 'speccomment', 'attachrate', 'attachcomment', 'guaranteerate', 'guaranteecomment', 'salesrate', 'salescomment', 'avgrate', 'maker_name', 'create_date')
 
 
 class ExpenseSerializer(serializers.ModelSerializer):
     image_url = serializers.SerializerMethodField()
     class Meta:
         model = Expense()
-        fields = ('status', 'author', 'cost', 'landarea', 'gradecomment', 'costupcomment', 'costdowncomment', 'image_url', 'maker_name', 'create_date', 'update_date')
+        fields = ('author', 'status', 'cost', 'landarea', 'gradecomment', 'costupcomment', 'costdowncomment', 'image_url', 'maker_name', 'create_date')
     def get_image_url(self, expense):
         request = self.context.get('request')
         image_url = ""
         if expense.image:
             image_url = request.build_absolute_uri(expense.image.url)
         return image_url
-
-class UserSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(write_only=True, required=False)
-    class Meta:
-        model = User
-        fields = ('username',)
-
-    def create(self, validated_data):
-        return Account.objects.create_user(request_data=validated_data)
