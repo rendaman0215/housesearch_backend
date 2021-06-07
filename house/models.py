@@ -1,9 +1,6 @@
-import uuid
-
 from django.db import models
 from django.db.models import Avg
 from django.core.validators import MaxValueValidator, MinValueValidator
-from decimal import Decimal
 
 class MakerCard(models.Model):
     id = models.AutoField(primary_key=True)
@@ -126,6 +123,11 @@ class Reviews(models.Model):
     salesrate = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)])
     salescomment = models.TextField()
     avgrate = models.DecimalField(max_digits=3,decimal_places=2)
+    def get_rateavg(self):
+        total = self.costrate+self.designrate+self.layoutrate+self.specrate+self.attachrate+self.guaranteerate+self.salesrate
+        avgrateavg = total / 7 
+        avgrateavg = round(avgrateavg,2)
+        return avgrateavg
     maker_name = models.CharField(max_length=100)
     create_date = models.DateTimeField(blank=True, null=True)
 
