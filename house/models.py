@@ -31,7 +31,7 @@ class MakerCard(models.Model):
             landareaavg = round(landareaavg,1)
         return landareaavg
     def get_rateavg(self):
-        avgrateavg = Reviews.objects.filter(maker_name=self.name_eng).aggregate(Avg('get_rateavg'))["get_rateavg__avg"]
+        avgrateavg = Reviews.objects.filter(maker_name=self.name_eng).aggregate(Avg('avgrate'))["avgrate__avg"]
         if avgrateavg == None:
             avgrateavg = 0.00
         else:
