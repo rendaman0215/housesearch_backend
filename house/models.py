@@ -31,7 +31,7 @@ class MakerCard(models.Model):
             landareaavg = round(landareaavg,1)
         return landareaavg
     def get_rateavg(self):
-        avgrateavg = Reviews.objects.filter(maker_name=self.name_eng).aggregate(Avg('avgrate'))["avgrate__avg"]
+        avgrateavg = Reviews.objects.filter(maker_name=self.name_eng).aggregate(Avg('get_rateavg'))["get_rateavg__avg"]
         if avgrateavg == None:
             avgrateavg = 0.00
         else:
@@ -123,13 +123,14 @@ class Reviews(models.Model):
     salesrate = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)])
     salescomment = models.TextField()
     avgrate = models.DecimalField(max_digits=3,decimal_places=2)
+    maker_name = models.CharField(max_length=100)
+    create_date = models.DateTimeField(blank=True, null=True)
+
     def get_rateavg(self):
         total = self.costrate+self.designrate+self.layoutrate+self.specrate+self.attachrate+self.guaranteerate+self.salesrate
         avgrateavg = total / 7 
         avgrateavg = round(avgrateavg,2)
         return avgrateavg
-    maker_name = models.CharField(max_length=100)
-    create_date = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
         return self.maker_name + " : " + self.author
