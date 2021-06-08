@@ -15,14 +15,14 @@ class MakerCardSerializer(serializers.ModelSerializer):
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Reviews
-        fields = ('author', 'status', 'costrate', 'costcomment', 'designrate', 'designcomment', 'layoutrate', 'layoutcomment', 'specrate', 'speccomment', 'attachrate', 'attachcomment', 'guaranteerate', 'guaranteecomment', 'salesrate', 'salescomment', 'avgrate', 'get_rateavg', 'maker_name', 'create_date')
+        fields = ('pk','author', 'status', 'costrate', 'costcomment', 'designrate', 'designcomment', 'layoutrate', 'layoutcomment', 'specrate', 'speccomment', 'attachrate', 'attachcomment', 'guaranteerate', 'guaranteecomment', 'salesrate', 'salescomment', 'avgrate', 'get_rateavg', 'maker_name', 'create_date')
 
 
 class ExpenseSerializer(serializers.ModelSerializer):
     image_url = serializers.SerializerMethodField()
     class Meta:
         model = Expense()
-        fields = ('author', 'status', 'cost', 'landarea', 'gradecomment', 'costupcomment', 'costdowncomment', 'image_url', 'maker_name', 'create_date')
+        fields = ('pk','author', 'status', 'cost', 'landarea', 'gradecomment', 'costupcomment', 'costdowncomment', 'image_url', 'maker_name', 'create_date')
     def get_image_url(self, expense):
         request = self.context.get('request')
         image_url = ""

@@ -10,6 +10,6 @@ from house import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', obtain_jwt_token),
-    url('api/', include(house_router.urls)),
+    url('api/', include(house_router.urls),),
     url('user/', views.PingViewSet.as_view()),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

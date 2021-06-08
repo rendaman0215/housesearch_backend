@@ -93,7 +93,7 @@ class MakerCard(models.Model):
         rateavg = self.get_rateavg()
         for i in range(int(rateavg)):
             ratestr += '<i class="bi bi-star-fill rateicon"></i>'
-        if float(rateavg) - float(int(rateavg)) <= 0.5 and rateavg!=5 and rateavg!=0:
+        if float(rateavg) - float(int(rateavg)) > 0 and float(rateavg) - float(int(rateavg)) <= 0.5 and rateavg!=5 and rateavg!=0:
             ratestr += '<i class="bi bi-star-half rateicon"></i>'
         elif float(rateavg) - float(int(rateavg)) >= 0.5:
             ratestr += '<i class="bi bi-star-fill rateicon"></i>'

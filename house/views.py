@@ -1,13 +1,13 @@
 # Model, Form, Serializer, Permissionをimport
 from .models import MakerCard, Reviews, Expense
 from .serializer import MakerCardSerializer, ReviewSerializer, ExpenseSerializer
-from .permission import IsAdminOrReadOnly, IsMeOrAdminOrReadOnly
+from .permission import IsAdminOrReadOnly, IsMeOrAdminOrGuestOrOthers
 
 # REST FRAMEWORK系
 from rest_framework import generics
 from rest_framework import viewsets, filters, status
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.permissions import IsAuthenticated
 
 class MakerCardViewSet(viewsets.ModelViewSet):
     # キーを指定
@@ -23,7 +23,7 @@ class ReviewViewSet(viewsets.ModelViewSet):
     # モデル
     queryset = Reviews.objects.all()
     # ユーザー認証
-    permission_classes = [IsMeOrAdminOrReadOnly]
+    permission_classes = (IsMeOrAdminOrGuestOrOthers,)
     # シリアライザー
     serializer_class = ReviewSerializer
     # フィルター
@@ -33,7 +33,7 @@ class ExpenseViewSet(viewsets.ModelViewSet):
     # モデル
     queryset = Expense.objects.all()
     # ユーザー認証
-    permission_classes = [IsMeOrAdminOrReadOnly]
+    permission_classes = (IsMeOrAdminOrGuestOrOthers,)
     # シリアライザー
     serializer_class = ExpenseSerializer
     # フィルター
