@@ -27,7 +27,7 @@ class ReviewViewSet(viewsets.ModelViewSet):
     # シリアライザー
     serializer_class = ReviewSerializer
     # フィルター
-    filter_fields = ('maker_name',) 
+    filter_fields = ('maker_name','author',) 
 
 class ExpenseViewSet(viewsets.ModelViewSet):
     # モデル
@@ -37,7 +37,7 @@ class ExpenseViewSet(viewsets.ModelViewSet):
     # シリアライザー
     serializer_class = ExpenseSerializer
     # フィルター
-    filter_fields = ('maker_name',) 
+    filter_fields = ('maker_name','author',) 
 
 class PingViewSet(generics.GenericAPIView):
     # ユーザー認証
