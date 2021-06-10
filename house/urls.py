@@ -12,7 +12,7 @@ router.register(r'v1/reviews', views.ReviewViewSet)
 router.register(r'v1/expense', views.ExpenseViewSet)
 
 urlpatterns = [
-    url('api/v1/isposted/', views.isPosted.as_view()),
-    url('api/v1/user/', views.PingViewSet.as_view()),
-    path('api/auth/', obtain_jwt_token),
+    url('v1/isposted/', views.isPosted.as_view()),
+    url('v1/user/', views.PingViewSet.as_view()),
+    path('auth/', obtain_jwt_token),
 ]
