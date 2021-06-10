@@ -12,4 +12,5 @@ urlpatterns = [
     path('auth/', obtain_jwt_token),
     url('api/', include(house_router.urls),),
     url('user/', views.PingViewSet.as_view()),
+    url('isposted/', views.isPosted.as_view()),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
