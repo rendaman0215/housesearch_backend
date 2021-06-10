@@ -35,7 +35,7 @@ class MakerCardViewSet(viewsets.ModelViewSet):
 class ReviewViewSet(viewsets.ModelViewSet):
     """ Review Informations """
     # モデル
-    queryset = Reviews.objects.all()
+    queryset = Reviews.objects.order_by('-create_date')
     # ユーザー認証
     permission_classes = (IsMeOrAdminOrGuestOrOthers,)
     # シリアライザー
@@ -46,7 +46,7 @@ class ReviewViewSet(viewsets.ModelViewSet):
 class ExpenseViewSet(viewsets.ModelViewSet):
     """ Expense Informations """
     # モデル
-    queryset = Expense.objects.all()
+    queryset = Expense.objects.order_by('-create_date')
     # ユーザー認証
     permission_classes = (IsMeOrAdminOrGuestOrOthers,)
     # シリアライザー
