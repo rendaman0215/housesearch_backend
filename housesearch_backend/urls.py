@@ -9,8 +9,8 @@ from house import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('auth/', obtain_jwt_token),
+    path('api/auth/', obtain_jwt_token),
+    url('api/user/', views.PingViewSet.as_view()),
+    url('api/isposted/', views.isPosted.as_view()),
     url('api/', include(house_router.urls),),
-    url('user/', views.PingViewSet.as_view()),
-    url('isposted/', views.isPosted.as_view()),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
