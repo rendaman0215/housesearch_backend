@@ -12,7 +12,7 @@ router.register(r'v1/reviews', views.ReviewViewSet)
 router.register(r'v1/expense', views.ExpenseViewSet)
 
 urlpatterns = [
-    url('v1/isposted/', views.isPosted.as_view()),
-    url('v1/user/', views.PingViewSet.as_view()),
+    path('v1/isposted/<slug:targetmaker>/', views.isPosted.as_view()),
+    path('v1/user/', views.PingViewSet.as_view()),
     path('auth/', obtain_jwt_token),
 ]

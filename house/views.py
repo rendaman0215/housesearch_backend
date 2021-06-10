@@ -16,9 +16,9 @@ class isPosted(APIView):
     # ユーザー認証
     permission_classes = [IsAuthenticated]
     
-    def get(self, request, format=None):
-        RevPosted = Reviews.objects.filter(author=str(request.user)).exists()
-        ExpPosted = Expense.objects.filter(author=str(request.user)).exists()
+    def get(self, request, format=None, **kwargs):
+        RevPosted = Reviews.objects.filter(author=str(request.user), maker_name=self.kwargs['targetmaker']).exists()
+        ExpPosted = Expense.objects.filter(author=str(request.user), maker_name=self.kwargs['targetmaker']).exists()
         return Response({'RevPosted':RevPosted, 'ExpPosted':ExpPosted})
 
 class MakerCardViewSet(viewsets.ModelViewSet):
