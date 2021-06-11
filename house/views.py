@@ -17,8 +17,14 @@ class isPosted(APIView):
     permission_classes = [IsAuthenticated]
     
     def get(self, request, format=None, **kwargs):
-        RevPosted = Reviews.objects.filter(author=str(request.user), maker_name=self.kwargs['targetmaker']).exists()
-        ExpPosted = Expense.objects.filter(author=str(request.user), maker_name=self.kwargs['targetmaker']).exists()
+        RevPosted = ""
+        if Reviews.objects.filter(author=str(request.user), maker_name=self.kwargs['targetmaker']).exists():
+            RevPosted = Reviews.objects.filter(author=str(request.user), maker_name=self.kwargs['targetmaker']).values_list('pk', flat=True)
+            RevPosted = ', '.join(map(str, RevPosted))
+        ExpPosted = ""
+        if Expense.objects.filter(author=str(request.user), maker_name=self.kwargs['targetmaker']).exists():
+            ExpPosted = Expense.objects.filter(author=str(request.user), maker_name=self.kwargs['targetmaker']).values_list('pk', flat=True)
+            ExpPosted = ', '.join(map(str, ExpPosted))
         return Response({'RevPosted':RevPosted, 'ExpPosted':ExpPosted})
 
 class MakerCardViewSet(viewsets.ModelViewSet):
