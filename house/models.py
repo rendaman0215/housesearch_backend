@@ -9,7 +9,7 @@ class MakerCard(models.Model):
     name_kata = models.CharField(max_length=100)
     name_eng = models.CharField(max_length=100)
     images = models.ImageField(upload_to='')
-    create_date = models.DateTimeField(auto_now_add=True)
+    create_date = models.DateTimeField(auto_now=True)
     def __str__(self):
         return self.name
     def get_review_count(self):
@@ -124,7 +124,7 @@ class Reviews(models.Model):
     salescomment = models.TextField()
     avgrate = models.DecimalField(max_digits=3,decimal_places=2)
     maker_name = models.CharField(max_length=100)
-    create_date = models.DateTimeField(auto_now_add=True)
+    create_date = models.DateTimeField(auto_now=True)
 
     def get_rateavg(self):
         total = self.costrate+self.designrate+self.layoutrate+self.specrate+self.attachrate+self.guaranteerate+self.salesrate
@@ -148,7 +148,7 @@ class Expense(models.Model):
     costdowncomment = models.TextField()
     maker_name = models.CharField(max_length=100)
     image = models.ImageField(upload_to='expense/', blank=True, null=True)
-    create_date = models.DateTimeField(auto_now_add=True)
+    create_date = models.DateTimeField(auto_now=True)
     def __str__(self):
         return self.maker_name + " : " + self.author
 
