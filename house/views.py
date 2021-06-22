@@ -3,9 +3,6 @@ from .models import MakerCard, Reviews, Expense
 from .serializer import MakerCardSerializer, ReviewSerializer, ExpenseSerializer
 from .permission import IsAdminOrReadOnly, IsMeOrAdminOrGuestOrOthers
 
-# Django Filter
-from django_filters import rest_framework as filters
-
 # REST FRAMEWORK系
 from rest_framework import viewsets, status, generics
 from rest_framework.views import APIView
@@ -13,6 +10,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 
 class isPosted(APIView):
+    """ Confirm whether user already posted """
     # ユーザー認証
     permission_classes = [IsAuthenticated]
     
@@ -61,6 +59,7 @@ class ExpenseViewSet(viewsets.ModelViewSet):
     filter_fields = ('maker_name','author',) 
 
 class PingViewSet(generics.GenericAPIView):
+    """ User Informations """
     # ユーザー認証
     permission_classes = (IsAuthenticated,)
     def get(self, request, format=None):

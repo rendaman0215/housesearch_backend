@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from .models import MakerCard, Reviews, Expense
-from django.contrib.auth.models import User
 
 class MakerCardSerializer(serializers.ModelSerializer):
     image_url = serializers.SerializerMethodField()

@@ -4,6 +4,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 class MakerCard(models.Model):
     id = models.AutoField(primary_key=True)
+    description = models.TextField()
     name = models.CharField(max_length=100)
     name_hira = models.CharField(max_length=100)
     name_kata = models.CharField(max_length=100)
