@@ -67,13 +67,6 @@ class MakerCard(models.Model):
         else:
             specrateavg = round(specrateavg,2)
         return specrateavg
-    def get_attachavg(self):
-        attachrateavg = Reviews.objects.filter(maker_name=self.name_eng).aggregate(Avg('attachrate'))["attachrate__avg"]
-        if attachrateavg == None:
-            attachrateavg = 0.00
-        else:
-            attachrateavg = round(attachrateavg,2)
-        return attachrateavg
     def get_guaranteeavg(self):
         guaranteerateavg = Reviews.objects.filter(maker_name=self.name_eng).aggregate(Avg('guaranteerate'))["guaranteerate__avg"]
         if guaranteerateavg == None:
@@ -117,8 +110,6 @@ class Reviews(models.Model):
     layoutcomment = models.TextField()
     specrate = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)])
     speccomment = models.TextField()
-    attachrate = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)])
-    attachcomment = models.TextField()
     guaranteerate = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)])
     guaranteecomment = models.TextField()
     salesrate = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)])
@@ -128,8 +119,8 @@ class Reviews(models.Model):
     create_date = models.DateTimeField(auto_now=True)
 
     def get_rateavg(self):
-        total = self.costrate+self.designrate+self.layoutrate+self.specrate+self.attachrate+self.guaranteerate+self.salesrate
-        avgrateavg = total / 7 
+        total = self.costrate+self.designrate+self.layoutrate+self.specrate+self.guaranteerate+self.salesrate
+        avgrateavg = total / 6
         avgrateavg = round(avgrateavg,2)
         return avgrateavg
 
@@ -150,6 +141,7 @@ class Expense(models.Model):
     costdowncomment = models.TextField()
     maker_name = models.CharField(max_length=100)
     image = models.ImageField(upload_to='expense/', blank=True, null=True)
+    layoutimage = models.ImageField(upload_to='expense/', blank=True, null=True)
     create_date = models.DateTimeField(auto_now=True)
     def __str__(self):
         return self.maker_name + " : " + self.author
