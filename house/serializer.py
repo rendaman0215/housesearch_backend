@@ -23,7 +23,7 @@ class ExpenseSerializer(serializers.ModelSerializer):
     image_url = serializers.SerializerMethodField()
     class Meta:
         model = Expense
-        fields = ('pk','author', 'status', 'cost', 'landarea', 'gradecomment', 'costupcomment', 'costdowncomment', 'image_url', 'maker_name', 'create_date')
+        fields = ('pk','author', 'status', 'cost', 'landarea', 'gradecomment', 'costupcomment', 'costdowncomment', 'hid', 'image_url', 'maker_name', 'create_date')
         read_only_fields = ('pk','created_at',)
     def get_image_url(self, expense):
         request = self.context.get('request')
