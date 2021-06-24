@@ -140,11 +140,21 @@ class Expense(models.Model):
     costupcomment = models.TextField()
     costdowncomment = models.TextField()
     maker_name = models.CharField(max_length=100)
-    image = models.ImageField(upload_to='expense/', blank=True, null=True)
     layoutimage = models.ImageField(upload_to='expense/', blank=True, null=True)
     create_date = models.DateTimeField(auto_now=True)
     def __str__(self):
-        return self.maker_name + " : " + self.author
+        sta = ""
+        if self.hid:
+            sta = "非表示"
+        return self.maker_name + " : " + self.author + sta
 
     class Meta:
         verbose_name = "費用明細"
+
+class Picture(models.Model):
+### Images of Expense ###
+    expense = models.ForeignKey('house.Expense',
+                             on_delete=models.CASCADE,
+                             related_name='pictures')
+    file = models.ImageField(upload_to='expense/')
+    name = models.CharField('ファイル名', max_length=250, default='example.png')
