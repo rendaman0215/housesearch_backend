@@ -142,7 +142,7 @@ class Expense(models.Model):
     id = models.AutoField(primary_key=True)
     author = models.CharField(max_length=100)
     status = models.CharField(max_length=100)
-    hidden = models.BooleanField()
+    hid = models.BooleanField()
     cost = models.IntegerField()
     landarea = models.IntegerField()
     gradecomment = models.TextField()
