@@ -24,12 +24,16 @@ class ExpenseSerializer(serializers.ModelSerializer):
         fields =  ('pk','author', 'status', 'cost', 'landarea', 'gradecomment', 'costupcomment', 'costdowncomment', 'hid', 'expimg_url', 'layoutimg_url', 'maker_name', 'create_date')
         read_only_fields = ('pk','created_at','hid')
 
-    def get_image_url(self, expense):
+    def get_expimage_url(self, expense):
         request = self.context.get('request')
         expimg_url = ""
-        layoutimg_url = ""
         if expense.expimage:
             expimg_url = request.build_absolute_uri(expense.expimage.url)
+        return expimg_url
+
+    def get_layoutimage_url(self, expense):
+        request = self.context.get('request')
+        layoutimg_url = ""
         if expense.layoutimage:
             layoutimg_url = request.build_absolute_uri(expense.layoutimage.url)
-        return expimg_url, layoutimg_url
+        return layoutimg_url
