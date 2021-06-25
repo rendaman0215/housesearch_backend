@@ -140,7 +140,6 @@ class Expense(models.Model):
     costupcomment = models.TextField()
     costdowncomment = models.TextField()
     maker_name = models.CharField(max_length=100)
-    layoutimage = models.ImageField(upload_to='expense/', blank=True, null=True)
     create_date = models.DateTimeField(auto_now=True)
     def __str__(self):
         sta = ""

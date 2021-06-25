@@ -8,6 +8,7 @@ from rest_framework import viewsets, status, generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import action
 
 class isPosted(APIView):
     """ Confirm whether user already posted """
@@ -57,6 +58,16 @@ class ExpenseViewSet(viewsets.ModelViewSet):
     serializer_class = ExpenseSerializer
     # フィルター
     filter_fields = ('maker_name','author',) 
+    
+    @action(detail=False, methods=['get'])
+    def latest(self, request):
+        query_set = self.get_queryset()
+        if not query_set:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        query_set = query_set.latest('pk')
+        serializer = ExpenseSerializer(query_set, many=False)
+        return Response(serializer.data)
 
 class PingViewSet(generics.GenericAPIView):
     """ User Informations """
