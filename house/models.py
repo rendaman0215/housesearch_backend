@@ -139,6 +139,8 @@ class Expense(models.Model):
     gradecomment = models.TextField()
     costupcomment = models.TextField()
     costdowncomment = models.TextField()
+    expimage = models.ImageField(upload_to='expense/', blank=True, null=True)
+    layoutimage = models.ImageField(upload_to='expense/', blank=True, null=True)
     maker_name = models.CharField(max_length=100)
     create_date = models.DateTimeField(auto_now=True)
     def __str__(self):
@@ -149,11 +151,3 @@ class Expense(models.Model):
 
     class Meta:
         verbose_name = "費用明細"
-
-class Picture(models.Model):
-### Images of Expense ###
-    expense = models.ForeignKey('house.Expense',
-                             on_delete=models.CASCADE,
-                             related_name='pictures')
-    file = models.ImageField(upload_to='expense/')
-    name = models.CharField('ファイル名', max_length=250, default='example.png')
