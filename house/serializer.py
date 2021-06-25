@@ -21,5 +21,15 @@ class ReviewSerializer(serializers.ModelSerializer):
 class ExpenseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Expense
-        fields = '__all__'
-        read_only_fields = ('pk','created_at',)
+        fields =  ('pk','author', 'status', 'cost', 'landarea', 'gradecomment', 'costupcomment', 'costdowncomment', 'hid', 'expimg_url', 'layoutimg_url', 'maker_name', 'create_date')
+        read_only_fields = ('pk','created_at','hid')
+
+    def get_image_url(self, expense):
+        request = self.context.get('request')
+        expimg_url = ""
+        layoutimg_url = ""
+        if expense.expimage:
+            expimg_url = request.build_absolute_uri(expense.expimage.url)
+        if expense.layoutimage:
+            layoutimg_url = request.build_absolute_uri(expense.layoutimage.url)
+        return expimg_url, layoutimg_url
