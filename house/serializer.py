@@ -24,7 +24,7 @@ class ExpenseSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Expense
-        fields =  ('pk','author', 'status', 'cost', 'landarea', 'gradecomment', 'costupcomment', 'costdowncomment', 'hid', 'expimage_url', 'layoutimage_url', 'maker_name', 'create_date')
+        fields =  ('pk','author', 'status', 'cost', 'landarea', 'gradecomment', 'costupcomment', 'costdowncomment', 'hid', 'expimage', 'layoutimage', 'expimage_url', 'layoutimage_url', 'maker_name', 'create_date')
         read_only_fields = ('pk','created_at','hid', )
 
     def get_expimage_url(self, expense):
