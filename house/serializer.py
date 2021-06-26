@@ -19,6 +19,9 @@ class ReviewSerializer(serializers.ModelSerializer):
         read_only_fields = ('pk','created_at',)
 
 class ExpenseSerializer(serializers.ModelSerializer):
+    expimage_url = serializers.SerializerMethodField()
+    layoutimage_url = serializers.SerializerMethodField()
+
     class Meta:
         model = Expense
         fields =  ('pk','author', 'status', 'cost', 'landarea', 'gradecomment', 'costupcomment', 'costdowncomment', 'hid', 'expimage_url', 'layoutimage_url', 'maker_name', 'create_date')
